@@ -73,50 +73,50 @@
   .projekty-tab-bar {
     flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 8px !important;
+    gap: 0 !important;
     margin-bottom: 12px !important;
-    padding-bottom: 0 !important;
-    width: 100% !important;
     padding: 0 !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    /* NO overflow:hidden here — kills inner scroll */
+    width: 100% !important;
+    background: #000 !important;
+    overflow: hidden !important;
   }
 
   .back-tab-btn {
-    font-size: 0.40rem !important;
-    padding: 5px 6px !important;
-    min-height: auto !important;
+    font-size: 0.36rem !important;
+    padding: 4px 5px !important;
+    min-height: 28px !important;
     flex-shrink: 0 !important;
     white-space: nowrap !important;
   }
 
-  /* Horizontal-scroll strip for 5 tabs */
+  /* Horizontal-scroll strip for tabs */
   .tab-btns-center {
     display: flex !important;
-    flex-wrap: nowrap !important;       /* keep all buttons in one row  */
-    overflow-x: scroll !important;       /* scroll to reach hidden tabs  */
+    flex-wrap: nowrap !important;
+    overflow-x: scroll !important;
     -webkit-overflow-scrolling: touch !important;
     scroll-behavior: auto !important;
-    gap: 3px !important;
+    gap: 6px !important;
     width: 100% !important;
     max-width: 100% !important;
     flex: 0 1 100% !important;
-    padding: 0 !important;
+    padding: 0 2px !important;
     margin: 0 !important;
     justify-content: flex-start !important;
-    scrollbar-width: none !important;   /* hide scrollbar on Firefox    */
+    scrollbar-width: none !important;
     box-sizing: border-box !important;
-    background: #000 !important;        /* fill gap to the right of last tab */
+    background: #000 !important;
   }
   .tab-btns-center::-webkit-scrollbar { display: none !important; }
 
   .proj-tab-btn {
-    font-size: 0.40rem !important;
-    padding: 5px 7px !important;
+    font-size: 0.36rem !important;
+    padding: 4px 6px !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
-    min-height: auto !important;
+    min-height: 28px !important;
     letter-spacing: 0px !important;
     border-width: 1px !important;
   }
@@ -268,18 +268,18 @@
 
   /* Recent work */
   .section-arcade--recent {
-    margin-top: 18px !important;
-    padding-bottom: 8px !important;
+    margin-top: 14px !important;
+    padding-bottom: 4px !important;
   }
   .section-arcade--recent h3 {
-    font-size: 0.68rem !important;
+    font-size: 0.62rem !important;
     letter-spacing: 1px !important;
-    margin-bottom: 8px !important;
+    margin-bottom: 6px !important;
   }
   .recent-slider-shell { 
     display: flex !important;
     flex-direction: column !important;
-    gap: 8px !important; 
+    gap: 6px !important; 
     overflow: visible !important;
     width: 100% !important;
     padding: 0 !important;
@@ -294,6 +294,8 @@
     border: none !important;
     gap: 0 !important;
     scrollbar-width: none !important;
+    /* Fixed height = thumb + info, no stretching */
+    height: 170px !important;
   }
   .recent-carousel::-webkit-scrollbar {
     display: none !important;
@@ -309,12 +311,14 @@
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
+    height: 170px !important;
   }
   .recent-thumb {
-    aspect-ratio: 16/9 !important;
+    height: 120px !important;         /* fixed height, no aspect-ratio stretch */
     width: 100% !important;
     overflow: hidden !important;
     background: #111 !important;
+    flex-shrink: 0 !important;
   }
   .recent-thumb img {
     width: 100% !important;
@@ -323,10 +327,10 @@
     display: block !important;
   }
   .recent-info {
-    padding: 12px !important;
+    padding: 6px 10px !important;
     background: #000 !important;
     flex: 1 !important;
-    overflow-y: auto !important;
+    overflow: hidden !important;
   }
   /* MOBILE: Show navigation buttons (hidden on desktop) */
   .recent-nav {
@@ -336,8 +340,8 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 16px !important;
-    margin-top: 10px !important;
+    gap: 14px !important;
+    margin-top: 6px !important;
     width: 100% !important;
   }
   .recent-nav-btn {
@@ -345,9 +349,9 @@
     background: rgba(0,255,255,0.06) !important;
     border: 1.5px solid rgba(0,255,255,0.4) !important;
     color: var(--accent) !important;
-    font-size: 1rem !important;
-    width: 38px !important;
-    height: 38px !important;
+    font-size: 0.9rem !important;
+    width: 34px !important;
+    height: 34px !important;
     align-items: center !important;
     justify-content: center !important;
     flex-shrink: 0 !important;
@@ -360,14 +364,14 @@
   .recent-nav-btn:disabled { opacity: 0.2 !important; cursor: default !important; }
   .recent-nav-counter {
     font-family: var(--font-mono) !important;
-    font-size: 0.65rem !important;
+    font-size: 0.6rem !important;
     color: var(--accent) !important;
     letter-spacing: 3px !important;
-    min-width: 52px !important;
+    min-width: 48px !important;
     text-align: center !important;
   }
-  .recent-title { font-size: 0.40rem !important; }
-  .recent-meta  { font-size: 0.44rem !important; }
+  .recent-title { font-size: 0.38rem !important; }
+  .recent-meta  { font-size: 0.40rem !important; }
 }
 
 /* ============================================================
@@ -512,12 +516,16 @@
    TOUCH — tap sizes + kill desktop-only hover transforms
    ============================================================ */
 @media (max-width: 768px) {
+  /* Only menu blocks + page buttons need big tap targets */
   .menu-block,
-  .proj-tab-btn,
-  .back-tab-btn,
   .contact-wroc-btn,
   .page-btn {
     min-height: 44px !important;
+  }
+  /* Tab bar buttons are intentionally smaller — don't override */
+  .proj-tab-btn,
+  .back-tab-btn {
+    min-height: 28px !important;
   }
   .back-tab-btn:hover  { transform: none !important; }
   .menu-block:hover    { transform: none !important; }
