@@ -1,0 +1,45 @@
+﻿{
+  "title": "REGULAMIN & PRAWA AUTORSKIE",
+  "lastUpdated": "2026-06-09",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "OCHRONA PRACY",
+      "content": "Wszystkie prace 3D, VFX i design zaprezentowane na tym portfolio sa wylaczna wlasnoscia intelektualna 999NERTAjs. Jestem jedynym autorem tych materialow i zastrzegam sobie wszelkie prawa."
+    },
+    {
+      "id": "what_you_can",
+      "title": "CO MOZESZ ROBIC",
+      "items": [
+        "Ogladac i doceniac moje prace (uzytek prywatny)",
+        "Udostepniac link do portfolio z odpowiednim przypisem",
+        "Referencjonowac do nauki (z podaniem autora)",
+        "Kontaktowac sie w sprawie licencjonowania i projektow"
+      ]
+    },
+    {
+      "id": "what_you_cant",
+      "title": "CZEGO NIE WOLNO ROBIC",
+      "items": [
+        "Pobierac, kopiowac ani krasc moich prac",
+        "Uzywac komercyjnie bez mojej licencji",
+        "Modyfikowac lub przywlaszczac sobie moje prace",
+        "Rozpowszechniac bez mojej zgody",
+        "Uzywac moich zasobow we wlasnym portfolio"
+      ]
+    },
+    {
+      "id": "licensing",
+      "title": "LICENCJONOWANIE & KOLABORACJE",
+      "type": "contact_button",
+      "content": "Jezeli jestes zainteresowany wspolpraca, licencja lub projektem — zapraszam do kontaktu. Kazdy projekt omawiam indywidualnie."
+    },
+    {
+      "id": "copyright",
+      "title": "PRAWO AUTORSKIE & WLASNOSC",
+      "content": "Wszystkie prace na tym portfolio sa chronione prawem autorskim. Jestem ich jedynym tworca i wlascicielem. Nieautoryzowane uzycie moich materialow spowoduje dzialania prawne. Szanuj sztuke i artystow."
+    }
+  ],
+  "footer": "© 999NERTAjs 2026 — All Rights Reserved\nPrawa autorskie naleza wylacznie do 999NERTAjs",
+  "version": "v2.0"
+}

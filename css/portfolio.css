@@ -1,0 +1,1416 @@
+/* ============================================================
+   PORTFOLIO VIEW
+   Purpose: Portfolio tabs, cards, home tab, collabs, loading state, and modal.
+   Notes for AI/code editors:
+   - Keep selectors in sync with app.js data-main / data-subtab values.
+   - Preserve the section name when moving or extending rules.
+   ============================================================ */
+
+/* ============================================================
+   PROJEKTY / PORTFOLIO
+   ============================================================ */
+.portfolio-arcade {
+  max-width: clamp(900px, 90vw, 1300px);
+  margin: 0 auto;
+  background: transparent;
+  padding: clamp(20px, 3vw, 36px) clamp(24px, 4vw, 40px) clamp(60px, 8vw, 80px);
+  overflow: visible;
+}
+
+.projekty-tab-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  border-bottom: none;
+  padding-bottom: 8px;
+}
+.tab-btns-center {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.back-tab-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 1px;
+  color: #ff4455;
+  border: 1.5px solid rgba(255,68,80,0.55);
+  background: rgba(255,68,80,0.08);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.back-tab-btn:hover {
+  color: #ff2233;
+  border-color: #ff4455;
+  background: rgba(255,68,80,0.18);
+  box-shadow: 0 0 14px rgba(255,68,80,0.35);
+  transform: translateX(-2px);
+}
+.view-back-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 1px;
+  color: #ff4455;
+  border: 1.5px solid rgba(255,68,80,0.5);
+  background: rgba(255,68,80,0.07);
+  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s;
+  cursor: pointer;
+  margin: 20px 0 0 32px;
+}
+.view-back-btn:hover { color: #ff0022; border-color: #ff4455; box-shadow: 0 0 12px rgba(255,68,80,0.3); }
+
+.proj-tab-btn {
+  font-family: 'Press Start 2P', monospace;
+  background: #000;
+  border: 1.5px solid var(--border);
+  padding: 8px 14px;
+  font-size: 0.56rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+.proj-tab-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0, 255, 255, 0.09);
+  text-shadow: 0 0 8px rgba(0,255,255,0.5);
+  box-shadow: 0 0 10px rgba(0,255,255,0.1);
+}
+.proj-tab-btn:hover:not(.active) {
+  border-color: rgba(255,255,255,0.3);
+  color: var(--text);
+}
+
+/* ============================================================
+   PORTFOLIO WINDOW   no heavy outer frame, open arcade feel
+   ============================================================ */
+.projekty-window {
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+.window-outline {
+  border: none;
+  background: transparent;
+  padding: clamp(6px, 1vw, 8px) 0 clamp(20px, 2vw, 28px);
+  box-shadow: none;
+  min-height: clamp(450px, 60vh, 600px);
+}
+
+
+
+/* ============================================================
+   ARCADE LEVEL-SELECT GRID
+   ============================================================ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 25vw, 360px), 1fr));
+  gap: clamp(10px, 2vw, 18px);
+  justify-items: stretch;
+}
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 25vw, 360px), 1fr));
+  gap: clamp(10px, 2vw, 18px);
+  justify-items: stretch;
+}
+
+/* Pagination */
+.pagination-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 36px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+.page-indicator {
+  color: var(--accent);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0,255,255,0.4);
+}
+.page-btn {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  padding: 9px 22px;
+  font-family: var(--font-arcade);
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+.page-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 10px rgba(0,255,255,0.2);
+}
+.page-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* ============================================================
+   ARCADE LEVEL-SELECT CARDS   cyan border, no outer container
+   ============================================================ */
+.proj-card, .model-card {
+  background: #000;
+  transition: all 0.22s var(--ease);
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  border: 2px solid rgba(255,255,255,0.15);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.55) inset;
+}
+.proj-card:hover, .model-card:hover {
+  border-color: var(--accent);
+  transform: none;
+}
+
+/* Corner accent marks removed to avoid hover flash */
+.proj-card::before, .model-card::before,
+.proj-card::after,  .model-card::after {
+  display: none;
+}
+
+.proj-thumb, .model-thumb {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: #000;
+  flex: 0 0 auto;
+}
+.proj-thumb img, .model-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s var(--ease), filter 0.3s;
+  filter: brightness(0.88) saturate(1.1);
+}
+.proj-card:hover .proj-thumb img,
+.model-card:hover .model-thumb img {
+  transform: none;
+  filter: brightness(0.88) saturate(1.1);
+}
+
+/* === HOVER OVERLAY - shows title on hover === */
+.proj-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  opacity: 0;
+  transition: opacity 0.28s var(--ease);
+}
+.proj-card:hover .proj-overlay,
+.model-card:hover .proj-overlay { opacity: 1; }
+
+/* Full-card hover overlay - ADJUSTABLE POSITIONING */
+.proj-hover-overlay,
+.model-hover-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0,0,0,0.56);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* *** HEIGHT ADJUSTMENT: modify padding-top value to move content up/down (20px-60px range) *** */
+  padding-top: clamp(30px, 15vh, 70px);
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-bottom: 28px;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.10s linear;
+  pointer-events: none;
+}
+.proj-card:hover .proj-hover-overlay,
+.model-card:hover .model-hover-overlay { opacity: 1; }
+.proj-card:hover .proj-meta-bar,
+.proj-card:hover .proj-chips,
+.model-card:hover .proj-meta-bar,
+.model-card:hover .proj-chips {
+  opacity: 1;
+}
+.proj-hover-avatar {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid rgba(0,255,255,0.65);
+  box-shadow: 0 0 18px rgba(0,255,255,0.18);
+  background: #000;
+}
+.proj-hover-overlay .proj-title-hover,
+.model-hover-overlay .proj-title-hover {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.82rem;
+  color: #ffffff;
+  text-align: center;
+  padding: 0 14px;
+  line-height: 1.65;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.95), 0 0 18px rgba(0,255,255,0.16);
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.play-btn {
+  width: 46px; height: 46px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-size: 0.9rem;
+  box-shadow: 0 0 22px rgba(0,255,255,0.6);
+  flex-shrink: 0;
+}
+
+.badge-new {
+  position: absolute;
+  top: 10px; left: 10px;
+  background: var(--accent);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  padding: 4px 8px;
+  font-weight: bold;
+  z-index: 3;
+}
+
+/* === META BAR - top of card === */
+.proj-meta-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px 8px;
+  padding: 5px 10px;
+  background: #000;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.5px;
+  min-height: 28px;
+}
+
+/* Duration   bright cyan, bold, glow */
+.meta-dur {
+  color: #00eeff;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.74rem;
+  letter-spacing: 1.2px;
+  text-shadow: 0 0 8px rgba(0,238,255,0.55);
+}
+.meta-dur i { font-size: 0.68rem; color: #00eeff; opacity: 1; }
+
+/* Date   muted grey */
+.meta-date {
+  color: var(--text-muted);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.meta-date i { font-size: 0.6rem; opacity: 0.5; }
+
+/* Client   vivid green, glow, right-aligned */
+.meta-client {
+  color: #00ff88;
+  font-weight: 800;
+  font-size: 0.74rem;
+  letter-spacing: 0.8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  text-shadow: 0 0 8px rgba(0,255,136,0.55);
+}
+.meta-client i { font-size: 0.72rem; color: #00ff88; opacity: 1; }
+
+/* === CHIPS BAR - bottom of card === */
+.proj-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 7px 10px 9px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  background: #000;
+  min-height: 34px;
+}
+
+/* -----------------------------------------------------------
+   SOFTWARE CHIPS   NEW DESIGN
+   Font: Chakra Petch Bold Italic
+   Icons: Simple Icons CDN (img)
+   Style: black bg, vivid border, permanent + hover glow
+   ----------------------------------------------------------- */
+
+/* Base chip   used inside project cards (compact) */
+.tool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px 7px 8px;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 0.72rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  background: #000;
+  border: 1.5px solid rgba(255,255,255,0.18);
+  color: #bbb;
+  white-space: nowrap;
+  transition: box-shadow 0.25s ease, filter 0.25s ease;
+  position: relative;
+}
+
+/* Icon image from Simple Icons CDN */
+.tool-chip-img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+  filter: drop-shadow(0 0 3px currentColor);
+}
+.tool-chip-name { line-height: 1; }
+
+/* Suppress old FA ::before for chips that have an img icon */
+.tool-chip--si::before { display: none !important; content: none !important; }
+
+/* Old FA ::before kept only for fallback chips without img */
+.tool-chip:not(.tool-chip--si)::before {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands';
+  font-weight: 900;
+  font-size: 0.82rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* -- PER-TOOL COLORS (compact   project cards) -- */
+.tool-chip[data-tool="BLENDER"]             { color:#ff8c2a; border-color:#ff8c2a; box-shadow:0 0 6px rgba(255,140,42,.25); }
+.tool-chip[data-tool="UNREAL ENGINE 5"]     { color:#ffffff; border-color:#ffffff; box-shadow:0 0 6px rgba(255,255,255,.25); }
+.tool-chip[data-tool="SUBSTANCE 3D PAINTER"],
+.tool-chip[data-tool="SUBSTANCE 3D"]        { color:#00e897; border-color:#00e897; box-shadow:0 0 6px rgba(0,232,151,.25); }
+.tool-chip[data-tool="AFTER EFFECTS"]       { color:#b09bff; border-color:#b09bff; box-shadow:0 0 6px rgba(176,155,255,.25); }
+.tool-chip[data-tool="PREMIERE PRO"]        { color:#e07fff; border-color:#e07fff; box-shadow:0 0 6px rgba(224,127,255,.25); }
+.tool-chip[data-tool="MARVELOUS DESIGNER"]  { color:#ff5c5c; border-color:#ff5c5c; box-shadow:0 0 6px rgba(255,92,92,.25); }
+.tool-chip[data-tool="CLO3D/MARVERLOUS"]    { color:#FF8A5C; border-color:#FF8A5C; box-shadow:0 0 6px rgba(255,138,92,.25); }
+.tool-chip[data-tool="PHOTOSHOP"]           { color:#5bc8ff; border-color:#5bc8ff; box-shadow:0 0 6px rgba(91,200,255,.25); }
+
+.tool-chip[data-tool="BLENDER"]:not(.tool-chip--si)::before     { content:'\f1b2'; }
+.tool-chip[data-tool="UNREAL ENGINE 5"]:not(.tool-chip--si)::before { content:'\f120'; }
+.tool-chip[data-tool="AFTER EFFECTS"]:not(.tool-chip--si)::before { content:'\f008'; }
+.tool-chip[data-tool="PREMIERE PRO"]:not(.tool-chip--si)::before { content:'\f03d'; }
+.tool-chip[data-tool="PHOTOSHOP"]:not(.tool-chip--si)::before   { content:'\f1fc'; }
+.tool-chip[data-tool="MARVELOUS DESIGNER"]::before               { content:'\f553'; }
+
+/* Hover boost   compact */
+.tool-chip:hover { filter: brightness(1.15); box-shadow: none !important; }
+.tool-chip[data-tool="BLENDER"]:hover          { box-shadow:0 0 16px rgba(255,140,42,.65); }
+.tool-chip[data-tool="UNREAL ENGINE 5"]:hover  { box-shadow:none; }
+.tool-chip[data-tool="SUBSTANCE 3D PAINTER"]:hover,
+.tool-chip[data-tool="SUBSTANCE 3D"]:hover     { box-shadow:none; }
+.tool-chip[data-tool="AFTER EFFECTS"]:hover    { box-shadow:0 0 16px rgba(176,155,255,.65); }
+.tool-chip[data-tool="PREMIERE PRO"]:hover     { box-shadow:0 0 16px rgba(224,127,255,.65); }
+.tool-chip[data-tool="MARVELOUS DESIGNER"]:hover { box-shadow:0 0 16px rgba(255,92,92,.65); }
+.tool-chip[data-tool="PHOTOSHOP"]:hover        { box-shadow:0 0 16px rgba(91,200,255,.65); }
+
+/* Fallback colors for unknown tools */
+.tool-chip:not([data-tool]):nth-child(6n+1) { color:#4da6ff; border-color:#4da6ff; }
+.tool-chip:not([data-tool]):nth-child(6n+2) { color:#ff8c2a; border-color:#ff8c2a; }
+.tool-chip:not([data-tool]):nth-child(6n+3) { color:#00e897; border-color:#00e897; }
+.tool-chip:not([data-tool]):nth-child(6n+4) { color:#b09bff; border-color:#b09bff; }
+.tool-chip:not([data-tool]):nth-child(6n+5) { color:#e07fff; border-color:#e07fff; }
+.tool-chip:not([data-tool]):nth-child(6n+6) { color:#ff5c5c; border-color:#ff5c5c; }
+
+.proj-card:hover .tool-chip { filter: brightness(1.2); }
+
+/* -- HOME SOFTWARE CHIPS -- */
+.home-chips-row .tool-chip {
+  gap: 14px;
+  padding: 16px 28px 16px 20px;
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  border-width: 2px;
+  text-transform: uppercase;
+}
+.home-chips-row .tool-chip-img {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+/* Permanent glow for home chips */
+.home-chips-row .tool-chip[data-tool="BLENDER"]         { color:#ff8c2a; border-color:#ff8c2a; box-shadow:0 0 10px rgba(255,140,42,.35), inset 0 0 16px rgba(255,140,42,.05); }
+.home-chips-row .tool-chip[data-tool="UNREAL ENGINE 5"] { color:#ffffff; border-color:#ffffff; box-shadow:0 0 10px rgba(255,255,255,.22), inset 0 0 16px rgba(255,255,255,.04); }
+.home-chips-row .tool-chip[data-tool="CLO3D/MARVERLOUS"] { color:#FF8A5C; border-color:#FF8A5C; box-shadow:0 0 10px rgba(255,138,92,.35), inset 0 0 16px rgba(255,138,92,.05); }
+.home-chips-row .tool-chip[data-tool="SUBSTANCE 3D"],
+.home-chips-row .tool-chip[data-tool="SUBSTANCE 3D PAINTER"] { color:#00e897; border-color:#00e897; box-shadow:0 0 10px rgba(0,232,151,.35), inset 0 0 16px rgba(0,232,151,.05); }
+.home-chips-row .tool-chip[data-tool="AFTER EFFECTS"]   { color:#b09bff; border-color:#b09bff; box-shadow:0 0 10px rgba(176,155,255,.35), inset 0 0 16px rgba(176,155,255,.05); }
+.home-chips-row .tool-chip[data-tool="PREMIERE PRO"]    { color:#e07fff; border-color:#e07fff; box-shadow:0 0 10px rgba(224,127,255,.35), inset 0 0 16px rgba(224,127,255,.05); }
+.home-chips-row .tool-chip[data-tool="PHOTOSHOP"]       { color:#5bc8ff; border-color:#5bc8ff; box-shadow:0 0 10px rgba(91,200,255,.35), inset 0 0 16px rgba(91,200,255,.05); }
+/* Hover glow for home chips */
+.home-chips-row .tool-chip[data-tool="BLENDER"]:hover         { box-shadow:0 0 22px rgba(255,140,42,.65); }
+.home-chips-row .tool-chip[data-tool="UNREAL ENGINE 5"]:hover { box-shadow:0 0 22px rgba(255,255,255,.55), 0 0 50px rgba(255,255,255,.15); }
+.home-chips-row .tool-chip[data-tool="CLO3D/MARVERLOUS"]:hover { box-shadow:0 0 22px rgba(255,138,92,.65); }
+.home-chips-row .tool-chip[data-tool="SUBSTANCE 3D"]:hover,
+.home-chips-row .tool-chip[data-tool="SUBSTANCE 3D PAINTER"]:hover { box-shadow:0 0 22px rgba(0,232,151,.65); }
+.home-chips-row .tool-chip[data-tool="AFTER EFFECTS"]:hover   { box-shadow:0 0 22px rgba(176,155,255,.65); }
+.home-chips-row .tool-chip[data-tool="PREMIERE PRO"]:hover    { box-shadow:0 0 22px rgba(224,127,255,.65); }
+.home-chips-row .tool-chip[data-tool="PHOTOSHOP"]:hover       { box-shadow:0 0 22px rgba(91,200,255,.65); }
+
+
+
+/* === META: DATE (orange), CLIENT (mint), DURATION (grey) === */
+.proj-meta {
+  display: flex;
+  gap: 10px;
+  font-size: 0.62rem;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+}
+.proj-meta i { margin-right: 3px; }
+
+/* 1st span = duration */
+.proj-meta span:nth-child(1)   { color: var(--col-duration); }
+.proj-meta span:nth-child(1) i { color: var(--col-duration); }
+
+/* 2nd span = date   bright ORANGE */
+/* ============================================================
+   COLLABS   horizontal player-card layout
+   avatar LEFT | info RIGHT (nick + status, date, links)
+   cards stacked one below another (single column)
+   ============================================================ */
+.collabs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4px 0 12px;
+}
+
+/* --- Card shell --- */
+.collab-card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 22px;
+  background: #060a0a;
+  border: 1.5px solid rgba(255,255,255,0.07);
+  padding: 24px 28px 22px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.22s, border-color 0.22s, box-shadow 0.22s;
+}
+
+/* Active card   green left accent */
+.collab-card--active {
+  border-color: rgba(0,255,136,0.18);
+}
+.collab-card--active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #00ff88 0%, transparent 100%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Ended card   subtle grey */
+.collab-card--ended {
+  border-color: rgba(255,255,255,0.06);
+  opacity: 0.72;
+}
+.collab-card--ended::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #444 0%, transparent 100%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Hover */
+.collab-card:hover {
+  background: rgba(0,16,14,0.95);
+  border-color: rgba(0,255,255,0.38) !important;
+  box-shadow: 0 0 28px rgba(0,255,255,0.07), inset 0 0 30px rgba(0,255,255,0.02);
+  opacity: 1 !important;
+}
+
+/* --- Left column: avatar --- */
+.collab-left {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.collab-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,255,255,0.3);
+  overflow: hidden;
+  box-shadow: 0 0 18px rgba(0,255,255,0.15);
+  background: #111;
+  transition: border-color 0.22s, box-shadow 0.22s;
+}
+.collab-card--active .collab-avatar {
+  border-color: #00ff88;
+  box-shadow: 0 0 22px rgba(0,255,136,0.25), 0 0 0 4px rgba(0,255,136,0.06);
+}
+.collab-card:hover .collab-avatar {
+  border-color: var(--accent);
+  box-shadow: 0 0 22px rgba(0,255,255,0.3);
+}
+.collab-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Right column: info --- */
+.collab-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Nick row: nick + status badge side by side */
+.collab-name-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* Nick */
+.collab-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 2.5px;
+  color: #e4f6ff;
+  text-shadow: 0 0 10px rgba(0,255,255,0.28);
+  margin: 0;
+  line-height: 1.45;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Date   Orbitron, bigger, vivid cyan-white */
+.collab-date {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #ff9f43;
+  letter-spacing: 1.8px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+.collab-date i { color: rgba(168,216,240,0.5); font-size: 0.6rem; }
+
+/* Social links   black bg, row */
+.collab-links {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 0;
+}
+.collab-link {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.45rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #888;
+  background: #000;
+  transition: all 0.18s;
+  white-space: nowrap;
+  min-width: 42px;
+}
+.collab-link i { font-size: 0.85rem; flex-shrink: 0; }
+.collab-link:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.35);
+  background: #0a0a0a;
+}
+
+/* YouTube */
+.collab-link--yt {
+  color: #ff5555;
+  border-color: rgba(255,60,60,0.3);
+  background: #000;
+}
+.collab-link--yt:hover {
+  border-color: #ff4444;
+  box-shadow: 0 0 12px rgba(255,68,68,0.35);
+  color: #ff8888;
+  background: #0d0000;
+}
+
+/* YouTube Shorts */
+.collab-link--shorts {
+  color: #ff8844;
+  border-color: rgba(255,120,60,0.3);
+  background: #000;
+}
+.collab-link--shorts:hover {
+  border-color: #ff7733;
+  box-shadow: 0 0 12px rgba(255,100,50,0.35);
+  color: #ffaa77;
+  background: #0d0600;
+}
+
+/* TikTok */
+.collab-link--tiktok {
+  color: #d8d8d8;
+  border-color: rgba(255,255,255,0.16);
+  background: #000;
+}
+.collab-link--tiktok:hover {
+  border-color: #fff;
+  box-shadow: 0 0 12px rgba(255,255,255,0.15);
+  color: #fff;
+  background: #0a0a0a;
+}
+
+/* Status badge   sits next to nick inside .collab-name-row */
+.collab-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.collab-status.status-active {
+  border: 1px solid rgba(0,255,136,0.35);
+  background: rgba(0,255,136,0.07);
+  color: #00ff88;
+}
+.collab-status.status-ended {
+  border: 1px solid rgba(120,120,120,0.22);
+  background: rgba(255,255,255,0.02);
+  color: #555;
+}
+
+/* Pulse dot for active */
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00ff88;
+  animation: pulseDot 1.4s infinite;
+  flex-shrink: 0;
+}
+@keyframes pulseDot {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:0.3; transform:scale(0.5); }
+}
+
+/* old wrappers kept for safety */
+.collab-top { display: none; }
+.collab-info { width: 100%; }
+
+/* ============================================================
+   PORTFOLIO HOME (01 HOME tab)
+   ============================================================ */
+.portfolio-home-inner { display: flex; flex-direction: column; gap: 18px; padding-top: 12px; }
+.hero-arcade { text-align: center; padding: 6px 0 4px; }
+.hero-tag-arcade {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.hero-name-arcade {
+  font-family: 'Press Start 2P', monospace;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 4vw, 2.2rem);
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.hero-name-arcade em { color: var(--accent); font-style: normal; }
+
+/* Description text - Chakra Petch italic, warm light color */
+.hero-role-arcade {
+  max-width: 620px;
+  margin: 0 auto 24px;
+  font-family: 'Chakra Petch', sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: #c8d8e8;
+  line-height: 1.9;
+  letter-spacing: 0.8px;
+  border: 1px solid rgba(0, 255, 255, 0.15);
+  padding: 18px 28px;
+  background: rgba(0, 255, 255, 0.03);
+  position: relative;
+}
+.hero-role-arcade::before {
+  content: '//';
+  position: absolute;
+  left: -1px; top: -1px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  background: var(--surface);
+  padding: 2px 6px;
+  opacity: 0.7;
+}
+
+/* === HOME SOFTWARE (uses same .tool-chip as cards   1:1 identical) === */
+.home-chips-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.home-chips-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 3px;
+}
+.home-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+/* home-chips-row .tool-chip sizing consolidated above */
+
+/* Stats */
+.stats-row-arcade {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 18px 0 8px;
+}
+.stat-box-arcade {
+  background: #000;
+  border: 1px solid var(--accent);
+  padding: 14px 20px;
+  text-align: center;
+  min-width: 100px;
+  box-shadow: 0 0 14px rgba(0,255,255,0.1);
+}
+.stat-num-arcade {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 4px;
+  text-shadow: 0 0 18px rgba(255,255,255,0.25);
+}
+.stat-lbl-arcade {
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+}
+
+/* Section heading */
+.section-arcade {
+  border-left: none;
+  padding-left: 0;
+  margin-top: 30px;
+}
+.section-arcade h3 {
+  font-family: var(--font-arcade);
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+/* Recent cards */
+/* Recent cards - native slider / scroll-snap */
+.recent-slider-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.recent-carousel {
+  width: 100%;
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: grab;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) rgba(255,255,255,0.1);
+  scroll-snap-type: x mandatory;
+  padding: 10px;
+}
+.recent-carousel::-webkit-scrollbar { height: 10px; }
+.recent-carousel::-webkit-scrollbar-track { background: rgba(255,255,255,0.08); }
+.recent-carousel::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, rgba(0,255,255,0.55), rgba(0,255,255,0.9));
+  border-radius: 999px;
+}
+.recent-track { display: contents; }
+.recent-page { display: contents; }
+.recent-card {
+  flex: 0 0 clamp(240px, 22vw, 320px);
+  width: clamp(240px, 22vw, 320px);
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 0;
+  cursor: pointer;
+  transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+.recent-card:hover {
+  border-color: rgba(255,255,255,0.45);
+  box-shadow: 0 0 14px rgba(255,255,255,0.08), 0 8px 28px rgba(0,0,0,0.7);
+  transform: translateY(-2px);
+}
+.recent-thumb {
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  width: 100%;
+  background: #111;
+}
+.recent-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s, filter 0.25s;
+  filter: brightness(0.86);
+}
+.recent-card:hover .recent-thumb img { transform: scale(1.04); filter: brightness(1.0); }
+.recent-info { padding: 8px 10px 10px; }
+@media (max-width: 768px) {
+  .recent-card { flex-basis: 82vw; width: 82vw; }
+}
+.recent-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  color: var(--text);
+  line-height: 1.55;
+}
+.recent-meta {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--col-date);
+  font-weight: 700;
+}
+.recent-carousel.dragging { cursor: grabbing; }
+
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+#modal.open { display: flex; }
+#modalOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.93);
+  cursor: pointer;
+}
+.modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 1040px;
+  background: #111;
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 50px rgba(0,255,255,0.15);
+}
+#modalClose {
+  position: absolute;
+  top: 12px; right: 16px;
+  background: black;
+  border: 1px solid var(--accent);
+  width: 36px; height: 36px;
+  z-index: 20;
+  color: var(--accent);
+  font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+#modalClose:hover { background: rgba(0,255,255,0.15); }
+#modalPlayer { width: 100%; background: #000; display: block; }
+#modalPlayer img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+/* ============================================================
+   MODAL HORIZONTAL SLIDER
+   ============================================================ */
+.modal-slider-wrap {
+  position: relative;
+  width: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-height: 340px;
+  max-height: 70vh;
+}
+
+.modal-slides-viewport {
+  flex: 1;
+  overflow: hidden;
+  min-height: 340px;
+  max-height: 70vh;
+  position: relative;
+}
+
+.modal-slides-track {
+  display: flex;
+  transition: transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  height: 100%;
+}
+
+.modal-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  min-height: 340px;
+  max-height: 70vh;
+  overflow: hidden;
+}
+
+.modal-slide-img {
+  width: 100%;
+  max-height: calc(70vh - 56px);
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+.modal-slide-desc {
+  width: 100%;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.65;
+  padding: 10px 18px 12px;
+  background: #0a0a0a;
+  border-top: 1px solid rgba(0,255,255,0.1);
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+.modal-slide-desc::before {
+  content: '// ';
+  color: #00ffff;
+  opacity: 0.5;
+}
+
+/* Prev / Next arrow buttons */
+.modal-slider-btn {
+  flex-shrink: 0;
+  width: 48px;
+  height: 100%;
+  min-height: 340px;
+  background: rgba(0,0,0,0.7);
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 2.4rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.18s, background 0.18s;
+  z-index: 10;
+  user-select: none;
+}
+.modal-slider-btn:hover:not(:disabled) {
+  color: #00ffff;
+  background: rgba(0,255,255,0.08);
+}
+.modal-slider-btn:disabled {
+  opacity: 0.2;
+  cursor: default;
+}
+
+/* Counter and software chips in modal meta */
+.modal-counter {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(0,255,255,0.6);
+  letter-spacing: 2px;
+  margin-top: 6px;
+}
+.modal-sw-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+}
+#modalMeta { padding: 22px; }
+.modal-software {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: center;
+}
+.modal-software .tool-chip {
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  border-width: 1.5px;
+}
+.modal-software .tool-chip-img {
+  width: 18px;
+  height: 18px;
+}
+.modal-title {
+  font-family: var(--font-arcade);
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.modal-details {
+  display: flex;
+  gap: 18px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+.modal-details i { margin-right: 5px; color: var(--accent); }
+
+/* ============================================================
+   LOADING STATE
+   ============================================================ */
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  gap: 10px;
+}
+.loading-state::before {
+  content: '>';
+  animation: blink 0.7s step-end infinite;
+}
+
+/* ============================================================
+   PORTFOLIO BACKGROUND GRID
+   AI NOTE: grid is provided by .view-bg-overlay::after in base.css.
+   This section only sets stacking context for content layers.
+   ============================================================ */
+#view-projekty {
+  position: relative;
+}
+#view-projekty > *:not(.view-bg-overlay) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Recent work arrows removed in favor of a scroll slider */
+.recent-nav,
+.recent-nav-btn { display: none !important; }
+
+/* ===== CARDS: 3-column grid   wider cards via wider container ===== */
+
+
+/* Card base */
+.proj-card,
+.model-card {
+  overflow: hidden !important;
+}
+.proj-thumb, .model-thumb { aspect-ratio: 16 / 10 !important; }
+
+.proj-card:hover,
+.model-card:hover { transform: none !important; }
+
+.proj-card:hover .proj-thumb img,
+.model-card:hover .model-thumb img {
+  transform: none !important;
+  filter: brightness(0.88) saturate(1.1) !important;
+}
+
+.proj-card::before, .proj-card::after,
+.model-card::before, .model-card::after {
+  display: none !important;
+}
+
+/* Hover overlay */
+.proj-hover-overlay,
+.model-hover-overlay {
+  inset: 0 !important;
+  background: rgba(0,0,0,0.58) !important;
+  transition: opacity 0.12s linear !important;
+}
+
+/* Meta / chips */
+.proj-meta-bar  { padding: 5px 10px !important; min-height: 26px !important; }
+.proj-chips     { padding: 7px 10px 9px !important; min-height: 34px !important; background: #000 !important; }
+.proj-title-hover { font-size: 0.72rem !important; }
+
+/* Tab bar */
+.projekty-tab-bar { border-bottom: none !important; box-shadow: none !important; }
+
+/* Modal */
+.modal-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 0 6px;
+}
+.modal-avatar { display: none; }
+#modalMeta {
+  padding: 16px 22px 22px;
+  text-align: center;
+}
+.modal-title {
+  font-family: var(--font-arcade);
+  font-size: 1.1rem;
+  margin-bottom: 0;
+  color: var(--text);
+}
+
+/* Software chips in model hover overlay */
+.hover-sw-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  padding: 0 10px;
+  margin-bottom: 6px;
+}
+.hover-sw-chips .sw-chip {
+  font-size: 0.52rem;
+  padding: 4px 8px;
+}
+
+/* Software chips in modal meta */
+.modal-sw-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Breakpoints handled centrally in responsive.css */
+@media (max-width: 980px) {
+  .projekty-tab-bar { flex-wrap: wrap; }
+  .tab-btns-center  { justify-content: flex-start; }
+}
+@media (min-width: 2560px) {
+  .hero-name-arcade { font-size: clamp(1.5rem, 2vw, 2.5rem); }
+  .proj-tab-btn     { font-size: 0.58rem !important; padding: 9px 16px !important; }
+}
+
+
+
+/* ===== compact home layout for 1920x1080 ===== */
+.portfolio-home-inner {
+  padding-top: 8px;
+}
+.section-arcade--recent {
+  margin-top: 34px;
+}
+
+/* ============================================================
+   SW-CHIP  (JS-rendered software badges via buildSoftwareChips)
+   Colors applied via [data-tool]   do NOT add inline styles in JS.
+   ============================================================ */
+.sw-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  font-family: 'Chakra Petch', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #ccc;
+  white-space: nowrap;
+  transition: filter 0.2s;
+}
+
+/* HOME tab   noticeably larger than card chips */
+.sw-chip--home {
+  padding: 13px 26px;
+  font-size: 1.15rem;
+  gap: 12px;
+}
+
+/* Per-tool colors */
+.sw-chip[data-tool="BLENDER"]               { color: #FF8C2A; border-color: #FF8C2A; }
+.sw-chip[data-tool="UNREAL ENGINE 5"]       { color: #ffffff; border-color: rgba(255,255,255,0.7); }
+.sw-chip[data-tool="SUBSTANCE 3D"],
+.sw-chip[data-tool="SUBSTANCE 3D PAINTER"]  { color: #00E897; border-color: #00E897; }
+.sw-chip[data-tool="AFTER EFFECTS"]         { color: #B09BFF; border-color: #B09BFF; }
+.sw-chip[data-tool="PREMIERE PRO"]          { color: #E07FFF; border-color: #E07FFF; }
+.sw-chip[data-tool="CLO3D/MARVERLOUS"]      { color: #FF8A5C; border-color: #FF8A5C; }
+.sw-chip[data-tool="PHOTOSHOP"]             { color: #5BC8FF; border-color: #5BC8FF; }
+
+/* Home: permanent glow */
+.sw-chip--home[data-tool="BLENDER"]              { box-shadow: 0 0 10px rgba(255,140,42,.35), inset 0 0 16px rgba(255,140,42,.05); }
+.sw-chip--home[data-tool="UNREAL ENGINE 5"]      { box-shadow: 0 0 10px rgba(255,255,255,.22), inset 0 0 16px rgba(255,255,255,.04); }
+.sw-chip--home[data-tool="SUBSTANCE 3D"],
+.sw-chip--home[data-tool="SUBSTANCE 3D PAINTER"] { box-shadow: 0 0 10px rgba(0,232,151,.35), inset 0 0 16px rgba(0,232,151,.05); }
+.sw-chip--home[data-tool="AFTER EFFECTS"]        { box-shadow: 0 0 10px rgba(176,155,255,.35), inset 0 0 16px rgba(176,155,255,.05); }
+.sw-chip--home[data-tool="PREMIERE PRO"]         { box-shadow: 0 0 10px rgba(224,127,255,.35), inset 0 0 16px rgba(224,127,255,.05); }
+.sw-chip--home[data-tool="CLO3D/MARVERLOUS"]     { box-shadow: 0 0 10px rgba(255,138,92,.35),  inset 0 0 16px rgba(255,138,92,.05); }
+.sw-chip--home[data-tool="PHOTOSHOP"]            { box-shadow: 0 0 10px rgba(91,200,255,.35),  inset 0 0 16px rgba(91,200,255,.05); }
+
+/* Home: hover glow boost */
+.sw-chip--home[data-tool="BLENDER"]:hover          { box-shadow: 0 0 22px rgba(255,140,42,.65); }
+.sw-chip--home[data-tool="UNREAL ENGINE 5"]:hover  { box-shadow: 0 0 22px rgba(255,255,255,.55), 0 0 50px rgba(255,255,255,.15); }
+.sw-chip--home[data-tool="SUBSTANCE 3D"]:hover,
+.sw-chip--home[data-tool="SUBSTANCE 3D PAINTER"]:hover { box-shadow: 0 0 22px rgba(0,232,151,.65); }
+.sw-chip--home[data-tool="AFTER EFFECTS"]:hover    { box-shadow: 0 0 22px rgba(176,155,255,.65); }
+.sw-chip--home[data-tool="PREMIERE PRO"]:hover     { box-shadow: 0 0 22px rgba(224,127,255,.65); }
+.sw-chip--home[data-tool="CLO3D/MARVERLOUS"]:hover { box-shadow: 0 0 22px rgba(255,138,92,.65); }
+.sw-chip--home[data-tool="PHOTOSHOP"]:hover        { box-shadow: 0 0 22px rgba(91,200,255,.65); }
+
+/* ============================================================
+   COLLABS    values synced from previously-inline JS styles
+   ============================================================ */
+.collab-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+.collab-status.status-active {
+  border: 1px solid rgba(0,255,136,0.35);
+  background: rgba(0,255,136,0.07);
+  color: #00ff88;
+}
+.collab-status.status-ended {
+  border: 1px solid rgba(255,255,255,0.13);
+  background: transparent;
+  color: #666;
+}
+.collab-name {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  font-style: normal;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+.collab-date {
+  margin: 0 0 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.88rem;
+  color: #4db8ff;
+  letter-spacing: 0.06em;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.collab-date i { color: rgba(77,184,255,0.5); font-size: 0.6rem; }
+
+/* Collab link platform colours (override static base in main block above) */
+.collab-link--yt     { color: #ff5555; border-color: rgba(255,0,0,0.8);    background: #000; }
+.collab-link--shorts { color: #ff7777; border-color: rgba(255,68,68,0.8);  background: #000; }
+.collab-link--tiktok { color: #69c9d0; border-color: rgba(105,201,208,0.8); background: #000; }
+
+/* Modal player image (moved from JS inline style) */
+#modalPlayer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}

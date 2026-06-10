@@ -1,0 +1,71 @@
+[
+    {
+        "id": "collab-1",
+        "title": "ANGELKACS",
+        "thumbnail": "https://pbs.twimg.com/profile_images/1895284486721409024/8WdkwZ9C_400x400.jpg",
+        "date": "01.03.2023 -",
+        "dateColor": "#00ff88",
+        "status": "active",
+        "statusLabel": "Obecnie",
+        "statusBg": "#00c853",
+        "statusColor": "#ffffff",
+        "links": [
+            {
+                "label": "YouTube",
+                "icon": "fab fa-youtube",
+                "url": "https://youtube.com/@angelkacs",
+                "color": "#ff0000"
+            },
+            {
+                "label": "TikTok",
+                "icon": "fab fa-tiktok",
+                "url": "https://tiktok.com/@angelkacs2",
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "id": "collab-2",
+        "title": "TUDSON",
+        "thumbnail": "https://yt3.googleusercontent.com/2Vwa3oRmAKoq5tZ5biE09uLjkucfpJRRGwLNaTzxbDsTTbeK7sBYIhD9yCb5-HYMLT6wAkse2w=s160-c-k-c0x00ffffff-no-rj",
+        "date": "25.11.2025 - ",
+        "dateColor": "#00ff88",
+        "status": "active",
+        "statusLabel": "Obecnie",
+        "statusBg": "#00c853",
+        "statusColor": "#ffffff",
+        "links": [
+            {
+                "label": "YouTube",
+                "icon": "fab fa-youtube",
+                "url": "https://www.youtube.com/@tudsoN1",
+                "color": "#ff0000"
+            },
+            {
+                "label": "Shorts",
+                "icon": "fab fa-youtube",
+                "url": "https://www.youtube.com/@tudsoN1/shorts",
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "id": "collab-3",
+        "title": "MATIFITNESSCOACH",
+        "thumbnail": "https://i.postimg.cc/CSZZWpqj/image.png",
+        "date": "24.05.2024 - 03.08.2024",
+        "dateColor": "#ff8866",
+        "status": "past",
+        "statusLabel": "Zakonczone",
+        "statusBg": "#7a7a7a",
+        "statusColor": "#ffffff",
+        "links": [
+            {
+                "label": "TikTok",
+                "icon": "fab fa-tiktok",
+                "url": "https://tiktok.com/@matifitnesscoach",
+                "color": "#ffffff"
+            }
+        ]
+    }
+]

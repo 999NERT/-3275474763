@@ -1,0 +1,263 @@
+﻿/* ============================================================
+    REGULAMIN.CSS - REGULAMIN & PRAWA AUTORSKIE
+    Purpose: Styling for Terms & Conditions view - artistic portfolio style
+    ============================================================ */
+
+/* ============================================================
+    REGULAMIN VIEW CONTAINER  (mirrors #view-kontakt layout)
+    ============================================================ */
+#view-regulamin {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: clamp(60px, 10vh, 120px) 16px clamp(40px, 6vh, 80px);
+  scrollbar-gutter: stable;
+}
+#view-regulamin.active-view {
+  display: flex;
+}
+
+/* Centered terminal window */
+.regulamin-terminal {
+  max-width: clamp(420px, 62vw, 580px) !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  box-shadow: 12px 12px 0 var(--accent-glow) !important;
+  background: #000 !important;
+  border: 2px solid var(--accent) !important;
+}
+.regulamin-terminal ~ .contact-wroc-btn {
+  max-width: clamp(420px, 62vw, 580px);
+  width: 100% !important;
+  margin: clamp(22px, 3vh, 36px) auto 0 auto !important;
+}
+
+/* ============================================================
+    REGULAMIN BODY (scrollable content inside terminal box)
+    ============================================================ */
+.regulamin-body {
+  max-height: 62vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: auto;
+  padding: clamp(22px, 3vh, 36px) clamp(18px, 2.5vw, 32px);
+  box-sizing: border-box;
+  width: 100%;
+  scrollbar-gutter: stable;
+}
+
+.reg-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ============================================================
+    MAIN TITLE
+    ============================================================ */
+.reg-main-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  color: #00ffff;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 0 18px 0;
+  word-break: break-word;
+  font-weight: 900;
+}
+
+/* ============================================================
+    META INFO (Last Updated)
+    ============================================================ */
+.reg-meta {
+  display: none;
+}
+
+/* ============================================================
+    SECTION STYLING
+    ============================================================ */
+.reg-section {
+  margin: 0 0 22px 0;
+  padding: 0 0 18px 0;
+  border-bottom: 1.5px solid rgba(0, 255, 255, 0.15);
+}
+
+.reg-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* ============================================================
+    SECTION TITLE
+    ============================================================ */
+.reg-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #00ffcc;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 14px 0;
+  word-break: break-word;
+}
+
+/* ============================================================
+    BODY TEXT
+    ============================================================ */
+.reg-text {
+  font-size: 0.6rem;
+  line-height: 1.8;
+  color: #ffffff;
+  font-family: 'Press Start 2P', monospace;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  word-wrap: break-word;
+  margin: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+}
+
+/* ============================================================
+    BULLET LIST
+    ============================================================ */
+.reg-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reg-list li {
+  font-size: 0.6rem;
+  line-height: 1.8;
+  color: #ffffff;
+  font-family: 'Press Start 2P', monospace;
+  padding-left: 26px;
+  position: relative;
+  margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  word-wrap: break-word;
+  max-width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+}
+
+.reg-list li::before {
+  content: '';
+  position: absolute;
+  left: 0px;
+  color: #00ffcc;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* ============================================================
+    FOOTER
+    ============================================================ */
+.reg-footer {
+  margin: 24px 0 0 0;
+  padding: 18px 0 0 0;
+  border-top: 2.5px solid rgba(0, 255, 255, 0.25);
+  text-align: center;
+}
+
+.reg-footer p {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.8;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  text-transform: uppercase;
+  max-width: 100%;
+}
+
+/* ============================================================
+    SCROLLBAR STYLING
+    ============================================================ */
+.regulamin-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.regulamin-body::-webkit-scrollbar-track {
+  background: rgba(0, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+.regulamin-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.4);
+  border-radius: 4px;
+  border: 2px solid rgba(0, 0, 0, 0.6);
+}
+
+.regulamin-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 255, 0.6);
+}
+
+/* ============================================================
+    MOBILE RESPONSIVE
+    ============================================================ */
+@media (max-width: 768px) {
+  .reg-main-title {
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+
+  .reg-title {
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+  }
+
+  .reg-text {
+    font-size: 0.5rem;
+    line-height: 1.8;
+  }
+
+  .reg-list li {
+    font-size: 0.5rem;
+    line-height: 1.7;
+    padding-left: 24px;
+  }
+
+  .reg-footer p {
+    font-size: 0.7rem;
+  }
+
+  .regulamin-body {
+    max-height: 70vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .reg-main-title {
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+  }
+
+  .reg-title {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  .reg-text,
+  .reg-list li {
+    font-size: 0.45rem;
+  }
+}

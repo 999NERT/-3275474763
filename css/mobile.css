@@ -1,0 +1,498 @@
+/* ============================================================
+   MOBILE.CSS — 999NERTAjs ARCADE PORTFOLIO
+   ============================================================ */
+
+/* ============================================================
+   LANDING
+   ============================================================ */
+@media (max-width: 768px) {
+  .landing-center {
+    max-width: 100% !important;
+    padding: 0 18px 22px !important;
+    margin-top: -4vh !important;
+  }
+  .px-logo {
+    width: 120px !important;
+    height: 120px !important;
+    margin-bottom: 16px !important;
+  }
+  .landing-title {
+    font-size: clamp(0.88rem, 5.2vw, 1.35rem) !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 10px !important;
+  }
+  .landing-menu {
+    gap: 10px !important;
+    margin-top: 18px !important;
+    max-width: 100% !important;
+  }
+  .menu-block {
+    padding: 17px 20px !important;
+    min-height: 54px !important;
+  }
+  .menu-block-title {
+    font-size: clamp(0.68rem, 4vw, 0.98rem) !important;
+    letter-spacing: 2px !important;
+  }
+  .menu-block--settings .menu-block-title {
+    font-size: clamp(0.52rem, 2.8vw, 0.72rem) !important;
+  }
+  .footer-landing-wrap { margin-top: 20px !important; }
+  .footer-landing-block {
+    padding: 12px 14px !important;
+    font-size: clamp(0.4rem, 2.3vw, 0.58rem) !important;
+    width: 100% !important;
+  }
+}
+@media (max-width: 400px) {
+  .landing-center { margin-top: 0 !important; padding: 0 12px 14px !important; }
+  .px-logo { width: 90px !important; height: 90px !important; }
+  .landing-title { font-size: clamp(0.76rem, 5vw, 0.96rem) !important; }
+  .menu-block { padding: 14px 14px !important; }
+}
+
+/* ============================================================
+   PORTFOLIO — WRAPPER
+   ============================================================ */
+@media (max-width: 768px) {
+  .portfolio-arcade {
+    max-width: 100% !important;
+    padding: 12px 0 56px !important;
+    /* NOTE: do NOT set overflow-x:hidden here — kills tab scroll */
+  }
+  .window-outline {
+    min-height: 180px !important;
+    padding: 4px 0 10px !important;
+  }
+}
+
+/* ============================================================
+   TAB BAR — WRÓĆ on own row, tabs scroll horizontally
+   ============================================================ */
+@media (max-width: 768px) {
+  .projekty-tab-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+    padding-bottom: 0 !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    /* NO overflow:hidden here — kills inner scroll */
+  }
+
+  .back-tab-btn {
+    font-size: 0.40rem !important;
+    padding: 5px 6px !important;
+    min-height: auto !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  /* Horizontal-scroll strip for 5 tabs */
+  .tab-btns-center {
+    display: flex !important;
+    flex-wrap: nowrap !important;       /* keep all buttons in one row  */
+    overflow-x: scroll !important;       /* scroll to reach hidden tabs  */
+    -webkit-overflow-scrolling: touch !important;
+    scroll-behavior: auto !important;
+    gap: 3px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 1 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    justify-content: flex-start !important;
+    scrollbar-width: none !important;   /* hide scrollbar on Firefox    */
+    box-sizing: border-box !important;
+  }
+  .tab-btns-center::-webkit-scrollbar { display: none !important; }
+
+  .proj-tab-btn {
+    font-size: 0.40rem !important;
+    padding: 5px 7px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    min-height: auto !important;
+    letter-spacing: 0px !important;
+    border-width: 1px !important;
+  }
+}
+
+/* ============================================================
+   GRID — 2 columns on mobile
+   ============================================================ */
+@media (max-width: 768px) {
+  .projects-grid,
+  .models-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+}
+
+/* ============================================================
+   CARD — meta bar
+   ============================================================ */
+@media (max-width: 768px) {
+  .proj-meta-bar {
+    padding: 5px 6px !important;
+    min-height: 0 !important;
+    gap: 2px 4px !important;
+    flex-wrap: wrap !important;
+    font-size: 0.46rem !important;
+  }
+  .meta-dur,
+  .meta-date,
+  .meta-client {
+    font-size: 0.48rem !important;
+    gap: 3px !important;
+    letter-spacing: 0.4px !important;
+  }
+  .meta-dur i, .meta-date i, .meta-client i {
+    font-size: 0.44rem !important;
+  }
+}
+
+/* ============================================================
+   CARD CHIPS — fix overflow/clipping
+   proj-card has overflow:hidden from responsive.css which clips chips.
+   Solution: allow the card to be overflow:visible on mobile,
+   while keeping proj-thumb overflow:hidden for the image.
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Allow chips to show outside card bounds if needed */
+  .proj-card,
+  .model-card {
+    overflow: visible !important;
+  }
+  /* Keep the thumbnail image properly clipped */
+  .proj-thumb,
+  .model-thumb {
+    overflow: hidden !important;
+  }
+  /* Keep hover overlay clipped to card */
+  .proj-hover-overlay,
+  .model-hover-overlay {
+    overflow: hidden !important;
+    border-radius: 0 !important;
+  }
+
+  /* Chips: wrap, small font so all fit */
+  .proj-chips {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    padding: 6px 6px 8px !important;
+    min-height: 0 !important;
+    background: #000 !important;
+    border-top: 1px solid rgba(255,255,255,0.06) !important;
+  }
+
+  .tool-chip {
+    padding: 4px 7px 4px 5px !important;
+    font-size: 0.44rem !important;
+    gap: 3px !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+  }
+  .tool-chip-logo,
+  .tool-chip-img {
+    width: 10px !important;
+    height: 10px !important;
+  }
+}
+
+/* ============================================================
+   PAGINATION
+   ============================================================ */
+@media (max-width: 768px) {
+  .pagination-row {
+    margin-top: 14px !important;
+    gap: 8px !important;
+    font-size: 0.58rem !important;
+  }
+  .page-btn {
+    padding: 7px 14px !important;
+    font-size: 0.58rem !important;
+    min-height: 40px !important;
+  }
+}
+
+/* ============================================================
+   HOME TAB
+   ============================================================ */
+@media (max-width: 768px) {
+  .portfolio-home-inner {
+    padding-bottom: 24px !important;
+    gap: 10px !important;
+  }
+  .hero-arcade { padding-top: 0 !important; }
+  .hero-name-arcade {
+    font-size: clamp(0.86rem, 4.8vw, 1.28rem) !important;
+    letter-spacing: 1px !important;
+  }
+  .hero-role-arcade {
+    margin-bottom: 10px !important;
+    padding: 11px 13px !important;
+  }
+  .hero-role-text {
+    font-size: clamp(0.56rem, 2.5vw, 0.75rem) !important;
+  }
+
+  /* Software chips on home — smaller, wrapping */
+  .home-chips-bar { margin-top: 10px !important; }
+  .home-chips-row {
+    gap: 6px !important;
+    justify-content: flex-start !important;
+    flex-wrap: wrap !important;
+    margin-left: 0 !important;
+  }
+  .home-chips-row .tool-chip {
+    padding: 8px 11px 8px 9px !important;
+    font-size: 0.6rem !important;
+    gap: 6px !important;
+  }
+  .home-chips-row .tool-chip-img,
+  .home-chips-row .tool-chip-logo {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  /* Stats */
+  .stat-box-arcade { padding: 11px 8px !important; }
+  .stat-number-arcade { font-size: clamp(1.3rem, 7vw, 1.8rem) !important; }
+  .stat-label-arcade  { font-size: 0.42rem !important; letter-spacing: 0.8px !important; }
+
+  /* Recent work */
+  .section-arcade--recent {
+    margin-top: 18px !important;
+    padding-bottom: 8px !important;
+  }
+  .section-arcade--recent h3 {
+    font-size: 0.68rem !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 8px !important;
+  }
+  .recent-slider-shell { 
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important; 
+    overflow: visible !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .recent-carousel { 
+    display: flex !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    border: none !important;
+    gap: 0 !important;
+    scrollbar-width: none !important;
+  }
+  .recent-carousel::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  .recent-card {
+    flex-shrink: 0 !important;
+    background: #000 !important;
+    border: 1px solid rgba(0,255,255,0.3) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .recent-thumb {
+    aspect-ratio: 16/9 !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    background: #111 !important;
+  }
+  .recent-thumb img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+  .recent-info {
+    padding: 12px !important;
+    background: #000 !important;
+    flex: 1 !important;
+    overflow-y: auto !important;
+  }
+  /* MOBILE: Show navigation buttons (hidden on desktop) */
+  .recent-nav {
+    display: block !important;
+  }
+  .recent-nav-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    margin-top: 10px !important;
+    width: 100% !important;
+  }
+  .recent-nav-btn {
+    display: flex !important;
+    background: rgba(0,255,255,0.06) !important;
+    border: 1.5px solid rgba(0,255,255,0.4) !important;
+    color: var(--accent) !important;
+    font-size: 1rem !important;
+    width: 38px !important;
+    height: 38px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    cursor: pointer !important;
+    transition: background 0.18s !important;
+    font-family: inherit !important;
+    padding: 0 !important;
+  }
+  .recent-nav-btn:active { background: rgba(0,255,255,0.2) !important; }
+  .recent-nav-btn:disabled { opacity: 0.2 !important; cursor: default !important; }
+  .recent-nav-counter {
+    font-family: var(--font-mono) !important;
+    font-size: 0.65rem !important;
+    color: var(--accent) !important;
+    letter-spacing: 3px !important;
+    min-width: 52px !important;
+    text-align: center !important;
+  }
+  .recent-title { font-size: 0.40rem !important; }
+  .recent-meta  { font-size: 0.44rem !important; }
+}
+
+/* ============================================================
+   CONTACT VIEW
+   ============================================================ */
+@media (max-width: 768px) {
+  #view-kontakt {
+    padding: clamp(34px, 7vh, 60px) 10px clamp(26px, 5vh, 44px) !important;
+  }
+  .contact-terminal {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: 4px 4px 0 var(--accent-glow) !important;
+  }
+  .contact-wroc-btn {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+    font-size: 0.44rem !important;
+    padding: 14px 16px !important;
+    min-height: 46px !important;
+  }
+  .terminal-header {
+    padding: 10px 12px !important;
+    font-size: clamp(0.48rem, 2vw, 0.64rem) !important;
+    gap: 7px !important;
+  }
+  .contact-item {
+    padding: 12px 11px !important;
+    gap: 9px !important;
+    min-height: 50px !important;
+  }
+  .contact-icon { width: 22px !important; height: 22px !important; flex-shrink: 0 !important; }
+  .contact-icon svg { width: 19px !important; height: 19px !important; }
+  .contact-label {
+    font-size: clamp(0.34rem, 1.6vw, 0.48rem) !important;
+    min-width: 46px !important;
+    flex-shrink: 0 !important;
+  }
+  .contact-handle {
+    font-size: clamp(0.56rem, 2.2vw, 0.7rem) !important;
+    flex: 1 !important;
+    text-align: right !important;
+    word-break: break-all !important;
+  }
+  .contact-arrow { display: none !important; }
+  .terminal-status {
+    padding: 10px 12px !important;
+    font-size: clamp(0.32rem, 1.4vw, 0.46rem) !important;
+    line-height: 1.8 !important;
+  }
+}
+
+/* ============================================================
+   REGULAMIN VIEW
+   ============================================================ */
+@media (max-width: 768px) {
+  #view-regulamin {
+    padding: clamp(34px, 7vh, 60px) 10px clamp(26px, 5vh, 44px) !important;
+  }
+  .regulamin-terminal { max-width: 100% !important; width: 100% !important; }
+  .regulamin-body {
+    padding: 14px !important;
+    font-size: clamp(0.58rem, 2.1vw, 0.74rem) !important;
+  }
+}
+
+/* ============================================================
+   COLLABS TAB
+   ============================================================ */
+@media (max-width: 768px) {
+  .collabs-list {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding: 8px 0 !important;
+  }
+  .collab-card { padding: 18px 14px !important; }
+  .collab-name { font-size: 0.76rem !important; }
+  .collab-date { font-size: 0.74rem !important; }
+  .collab-links-row { flex-wrap: wrap !important; gap: 7px !important; }
+  .collab-link {
+    font-size: 0.44rem !important;
+    padding: 9px 12px !important;
+    min-height: 38px !important;
+  }
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+@media (max-width: 768px) {
+  .modal-box {
+    width: 96vw !important;
+    max-width: 96vw !important;
+    padding: 10px !important;
+  }
+  #modalPlayer { max-height: 54vw !important; }
+  #modalClose {
+    top: 8px !important; right: 8px !important;
+    font-size: 1rem !important;
+    min-width: 36px !important; min-height: 36px !important;
+    padding: 6px !important;
+  }
+  .modal-title { font-size: clamp(0.5rem, 2.4vw, 0.7rem) !important; }
+  .modal-meta-row {
+    font-size: clamp(0.46rem, 1.9vw, 0.62rem) !important;
+    flex-wrap: wrap !important;
+    gap: 5px !important;
+  }
+}
+
+/* ============================================================
+   TOUCH — tap sizes + kill desktop-only hover transforms
+   ============================================================ */
+@media (max-width: 768px) {
+  .menu-block,
+  .proj-tab-btn,
+  .back-tab-btn,
+  .contact-wroc-btn,
+  .page-btn {
+    min-height: 44px !important;
+  }
+  .back-tab-btn:hover  { transform: none !important; }
+  .menu-block:hover    { transform: none !important; }
+  .proj-card:hover,
+  .model-card:hover,
+  .collab-card:hover   { transform: none !important; }
+  .contact-wroc-btn:hover { transform: translateY(0) !important; }
+}

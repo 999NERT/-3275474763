@@ -1,0 +1,42 @@
+[
+  {
+    "id": "3d-1",
+    "title": "SLAYAAAA CARD",
+    "videoUrl": "https://www.youtube.com/embed/Mhwu5C9_-lI?si=w5rdiAK6D-ZfatwS",
+    "thumbnail": "https://img.youtube.com/vi/Mhwu5C9_-lI/maxresdefault.jpg",
+    "software": "Blender, Photoshop",
+    "duration": "1 week",
+    "date": "13.01.2026",
+    "client": "Angelkacs"
+  },
+  {
+    "id": "3d-2",
+    "title": "ASTEROIDA",
+    "videoUrl": "https://youtu.be/kbN2gupn5e0",
+    "thumbnail": "/images/aster.png",
+    "software": "Blender, UE5, CLO3D/MARVERLOUS, Substance 3D Painter",
+    "duration": "2 tyg.",
+    "date": "24.08.2024",
+    "client": "Angelkacs"
+  },
+  {
+    "id": "3d-3",
+    "title": "SAINTS",
+    "videoUrl": "https://youtu.be/tL0yyuKP2tA",
+    "thumbnail": "/images/SAINTS.png",
+    "software": "UE5",
+    "duration": "2 weeks",
+    "date": "05.03.2026",
+    "client": "Angelkacs"
+  },
+  {
+    "id": "3d-4",
+    "title": "POWER UP",
+    "videoUrl": "https://www.youtube.com/watch?v=O94pVMPi6Dg",
+    "thumbnail": "/images/POWERUP.jpg",
+    "software": "UE5, AFTER EFFECTS",
+    "duration": "1 month",
+    "date": "8.04.2026",
+    "client": "Angelkacs"
+  }
+]

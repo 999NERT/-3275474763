@@ -1,0 +1,417 @@
+/* ============================================================
+   COLLABS.CSS   EXCLUSIVE STYLING FOR 05 COLLABS TAB
+   Purpose: Enhanced visual presentation of collaborators
+   - Avatar: circular with glow effect (preserved)
+   - Background: dark with subtle grid (preserved & optimized)
+   - Layout: portrait-style cards with improved spacing
+   - Typography: vivid cyan/green accents, press start 2p
+   ============================================================ */
+
+/* ============================================================
+   COLLABS CONTAINER & BACKGROUND
+   ============================================================ */
+.collabs-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/* ============================================================
+   COLLAB CARD   portrait layout, centered
+   ============================================================ */
+.collab-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #060a0a 0%, #0a0a0a 100%);
+  border: 2px solid rgba(0, 255, 200, 0.15);
+  padding: 32px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  backdrop-filter: blur(2px);
+}
+
+/* Subtle animated background grid */
+.collab-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(0deg, transparent 24%, rgba(0, 255, 200, 0.04) 25%, rgba(0, 255, 200, 0.04) 26%, transparent 27%, transparent 74%, rgba(0, 255, 200, 0.04) 75%, rgba(0, 255, 200, 0.04) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(0, 255, 200, 0.04) 25%, rgba(0, 255, 200, 0.04) 26%, transparent 27%, transparent 74%, rgba(0, 255, 200, 0.04) 75%, rgba(0, 255, 200, 0.04) 76%, transparent 77%, transparent);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.collab-card * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Active collab card (current collaborations) */
+.collab-card--active {
+  border-color: rgba(0, 255, 136, 0.3);
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.05) 0%, rgba(0, 255, 200, 0.02) 100%);
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.15), inset 0 0 40px rgba(0, 255, 136, 0.03);
+}
+
+/* Ended collab card (past collaborations) */
+.collab-card--ended {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, rgba(100, 100, 100, 0.03) 0%, rgba(80, 80, 80, 0.02) 100%);
+  opacity: 0.75;
+}
+
+/* Hover state */
+.collab-card:hover {
+  border-color: rgba(0, 255, 200, 0.5);
+  box-shadow: 0 0 40px rgba(0, 255, 200, 0.25);
+  transform: translateY(-8px);
+  background: linear-gradient(135deg, rgba(0, 20, 20, 0.9) 0%, rgba(10, 15, 15, 0.9) 100%);
+}
+
+.collab-card--ended:hover {
+  opacity: 0.95;
+}
+
+/* ============================================================
+   AVATAR   circular, glowing, centered at top
+   ============================================================ */
+.collab-left {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.collab-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid rgba(0, 255, 200, 0.4);
+  overflow: hidden;
+  background: #111;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.collab-card--active .collab-avatar {
+  border-color: rgba(0, 255, 136, 0.6);
+}
+
+.collab-card:hover .collab-avatar {
+  border-color: rgba(0, 255, 200, 0.7);
+  transform: scale(1.05);
+}
+
+.collab-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ============================================================
+   INFO SECTION   right column content moved to portrait layout
+   ============================================================ */
+.collab-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+/* Nick row */
+.collab-name-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.collab-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: #00ffcc;
+  text-shadow:
+    0 0 10px rgba(0, 255, 200, 0.5),
+    0 0 20px rgba(0, 255, 136, 0.2);
+  margin: 0;
+  line-height: 1.3;
+  text-transform: uppercase;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Date   cyan/purple color, Orbitron font */
+.collab-date {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #00ffff;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.collab-date i {
+  color: #00ffff;
+  font-size: 0.5rem;
+}
+
+/* Social links   grid layout */
+.collab-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+  justify-content: center;
+}
+
+.collab-link {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.4rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1.5px solid rgba(0, 255, 200, 0.6);
+  padding: 7px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  text-decoration: none;
+  color: #00ffcc;
+  background: #000000;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(0, 255, 200, 0.2);
+}
+
+.collab-link i {
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.collab-link:hover {
+  color: #ffffff;
+  border-color: rgba(0, 255, 200, 0.8);
+  background: #000000;
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
+  transform: scale(1.05);
+}
+
+/* YouTube link */
+.collab-link--yt {
+  color: #ff5555;
+  border-color: rgba(255, 60, 60, 0.6);
+  background: #000000;
+  box-shadow: 0 0 10px rgba(255, 60, 60, 0.2);
+}
+
+.collab-link--yt:hover {
+  border-color: #ff5555;
+  background: #000000;
+  box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+  color: #ffaaaa;
+}
+
+/* YouTube Shorts link */
+.collab-link--shorts {
+  color: #ff8844;
+  border-color: rgba(255, 120, 60, 0.6);
+  background: #000000;
+  box-shadow: 0 0 10px rgba(255, 120, 60, 0.2);
+}
+
+.collab-link--shorts:hover {
+  border-color: #ff8844;
+  background: #000000;
+  box-shadow: 0 0 20px rgba(255, 100, 50, 0.5);
+  color: #ffbb99;
+}
+
+/* TikTok link */
+.collab-link--tiktok {
+  color: #69c9d0;
+  border-color: rgba(105, 201, 208, 0.6);
+  background: #000000;
+  box-shadow: 0 0 10px rgba(105, 201, 208, 0.2);
+}
+
+.collab-link--tiktok:hover {
+  border-color: #69c9d0;
+  background: #000000;
+  box-shadow: 0 0 20px rgba(105, 201, 208, 0.5);
+  color: #99dddd;
+}
+
+/* ============================================================
+   STATUS BADGE   "Obecnie" / "Zakonczone"
+   ============================================================ */
+.collab-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 7px 14px;
+  text-transform: uppercase;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.collab-status.status-active {
+  border: 2px solid #00ff88;
+  background: #000000;
+  color: #00ff88;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3), inset 0 0 10px rgba(0, 255, 136, 0.1);
+}
+
+.collab-status.status-ended {
+  border: 1px solid rgba(100, 100, 100, 0.3);
+  background: rgba(100, 100, 100, 0.05);
+  color: #666;
+}
+
+/* Pulse dot animation for active */
+.pulse-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00ff88;
+  animation: pulse-glow 2s infinite;
+  box-shadow: 0 0 8px #00ff88;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px #00ff88, 0 0 12px rgba(0, 255, 136, 0.5);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 12px #00ff88, 0 0 20px rgba(0, 255, 136, 0.3);
+    opacity: 0.8;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE   mobile & tablet adjustments
+   ============================================================ */
+@media (max-width: 768px) {
+  .collabs-list {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .collab-card {
+    padding: 24px 16px;
+  }
+
+  .collab-avatar {
+    width: 100px;
+    height: 100px;
+    border-width: 2px;
+  }
+
+  .collab-name {
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+  }
+
+  .collab-date {
+    font-size: 0.6rem;
+  }
+
+  .collab-link {
+    font-size: 0.35rem;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .collabs-list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .collab-card {
+    padding: 20px 12px;
+  }
+
+  .collab-avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .collab-name {
+    font-size: 0.65rem;
+  }
+
+  .collab-links {
+    gap: 6px;
+  }
+
+  .collab-link {
+    font-size: 0.3rem;
+    padding: 5px 8px;
+  }
+}
+
+/* ============================================================
+    FIX: AVATAR SKELETON LOADING STATE
+   ============================================================ */
+.collab-avatar--loading {
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,0.05) 25%,
+    rgba(0,255,255,0.15) 50%,
+    rgba(0,255,255,0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: avatarSkeleton 1.4s ease-in-out infinite;
+}
+@keyframes avatarSkeleton {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Fallback when image fails to load */
+.collab-avatar--error::after {
+  content: '?';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  color: rgba(0,255,255,0.4);
+}

@@ -1,0 +1,61 @@
+/* ============================================================
+   O MNIE VIEW
+   Purpose: About / artist info window and language/settings panel.
+   Notes for AI/code editors:
+   - Keep selectors in sync with app.js data-main / data-subtab values.
+   - Preserve the section name when moving or extending rules.
+   ============================================================ */
+
+/* ============================================================
+   USTAWIENIA (ABOUT) VIEW
+   ============================================================ */
+.settings-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 32px;
+}
+.settings-window {
+  background: #000;
+  border: 2px solid var(--accent);
+  max-width: 720px;
+  width: 100%;
+  box-shadow: 12px 12px 0 rgba(0,0,0,0.5), 0 0 20px var(--accent-glow);
+}
+.win-titlebar {
+  background: #000;
+  padding: 14px 22px;
+  font-family: var(--font-mono);
+  font-weight: bold;
+  border-bottom: 1px solid var(--accent);
+  letter-spacing: 1px;
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+.settings-content {
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.settings-content p {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.88rem;
+  font-family: var(--font-mono);
+  border-left: 3px solid var(--accent);
+  padding-left: 14px;
+  color: var(--text-muted);
+}
+.settings-content p i { color: var(--accent); font-size: 1rem; flex-shrink: 0; }
+.accent-text { color: var(--accent); font-weight: bold; }
+.retro-divider {
+  margin: 16px 0;
+  text-align: center;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  letter-spacing: 2px;
+}
+.glitch-small { color: var(--accent); font-size: 0.75rem; text-align: right; }

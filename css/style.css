@@ -1,0 +1,12 @@
+/* ============================================================
+   style.css
+   Compatibility entry point.
+   This file exists so old links still work, but the HTML below
+   will load the split files directly for clearer maintenance.
+   ============================================================ */
+@import url("./base.css");
+@import url("./main.css");
+@import url("./portfolio.css");
+@import url("./contact.css");
+@import url("./o-mnie.css");
+@import url("./responsive.css");

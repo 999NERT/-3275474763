@@ -1,0 +1,298 @@
+/* ============================================================
+   MAIN / HOME VIEW
+   Purpose: Landing screen, menu blocks, badge, and footer block.
+   Notes for AI/code editors:
+   - Keep selectors in sync with app.js data-main / data-subtab values.
+   - Preserve the section name when moving or extending rules.
+   ============================================================ */
+
+/* ============================================================
+   LANG BADGE  (top-right on landing)
+   ============================================================ */
+.lang-badge-wrap { display: none; }
+.lang-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--accent);
+  border: 1.5px solid rgba(0,255,255,0.5);
+  padding: 4px 10px;
+  background: rgba(0,0,0,0.6);
+}
+
+/* ============================================================
+   LANDING
+   ============================================================ */
+.landing-arena {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  /* ---- BACKGROUND: tlomain.png (place in images/ folder) ---- */
+  background-image: url('../images/tlomain.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Glass + dark tint layer   sits between bg image and grid */
+.landing-arena::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 14, 0.48);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Dark overlay   kept for extra depth */
+.landing-arena::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Grid squares   bright cyan lines over glass */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.landing-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 780px;
+  padding: 0 24px 20px;
+  /* MANUAL TWEAK: change this margin-top value to move the logo/title block up or down. */
+  margin-top: -11.5vh;
+}
+
+/* === LOGO: bigger, NO glow/shadow === */
+.px-logo {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  /* glow removed */
+  filter: none;
+  margin-bottom: 28px;
+  border-radius: 50%;
+  transition: transform 0.3s var(--ease);
+}
+.px-logo:hover { transform: scale(1.04); }
+
+/* === MAIN TITLE: 1:1 identyczny z hero-name-arcade w portfolio === */
+.landing-title {
+  font-family: 'Press Start 2P', monospace;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 4vw, 2.2rem);
+  color: var(--text);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.landing-title em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.landing-sub { display: none; }
+
+/* Menu blocks */
+/* Menu blocks   separated items, full border frame only on hover */
+.landing-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 560px;
+  border: none;
+  margin-top: 32px;
+}
+.menu-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 36px;
+  background: #0e0e0e;          /* solid dark background   not transparent */
+  border: 2px solid rgba(255,255,255,0.07);
+  cursor: pointer;
+  transition: border-color 0.22s, box-shadow 0.22s, background 0.22s;
+  position: relative;
+  overflow: hidden;
+}
+.menu-block:last-child { border-bottom: 2px solid rgba(255,255,255,0.07); }
+
+/* Remove old left-bar pseudo */
+.menu-block::before { display: none; }
+
+/* Hover: full cyan frame + glow   NOT pre-lit */
+.menu-block:hover {
+  border-color: var(--accent);
+  background: #0a1820;
+  box-shadow:
+    0 0 0 1px var(--accent),
+    0 0 22px rgba(0, 255, 255, 0.18),
+    inset 0 0 14px rgba(0, 255, 255, 0.05);
+}
+
+/* active-block: no pre-lit border, just slightly brighter bg */
+.menu-block.active-block {
+  background: #0c1515;
+  border-color: rgba(0, 255, 255, 0.18);
+}
+
+.menu-block-title {
+  font-family: 'Press Start 2P', monospace;
+  font-weight: 400;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  color: var(--text);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+.menu-block:hover .menu-block-title,
+.menu-block.active-block:hover .menu-block-title {
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(0, 255, 255, 0.55);
+}
+.menu-block-sub { display: none; }
+
+/* Settings/Language button – REGULAMIN style */
+.menu-block--settings {
+  background: rgba(0,255,255,0.04);
+}
+.menu-block--settings .menu-block-title { color: var(--accent); font-size: clamp(0.75rem, 2.2vw, 1rem); }
+.menu-block--settings:hover {
+  border-color: var(--accent);
+  background: rgba(0,255,255,0.1);
+}
+
+/* ============================================================
+   LANGUAGE SWITCH PANEL
+   ============================================================ */
+.lang-switch-box {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.lang-switch-label {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lang-switch-label i { font-size: 1rem; }
+.lang-switch-hint {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-top: -8px;
+}
+.lang-btn-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  border: 2px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.03);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.lang-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,255,255,0.07);
+  box-shadow: 0 0 14px rgba(0,255,255,0.2);
+}
+.lang-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,255,255,0.1);
+  box-shadow: 0 0 0 1px var(--accent), 0 0 18px rgba(0,255,255,0.25);
+}
+.lang-flag { font-size: 1.4rem; line-height: 1; }
+
+
+/* ============================================================
+   FOOTER LANDING BLOCK  (replaces old fixed footer button)
+   AI NOTE: keep this block separate from menu styles; only footer sizing
+   should be adjusted here so landing buttons preserve their original width.
+   ============================================================ */
+.footer-landing-wrap {
+  width: 100%;
+  max-width: 760px;
+  margin-top: 54px; /* lower footer block */
+  display: flex;
+  justify-content: center;
+}
+.footer-landing-block {
+  width: min(700px, 94%); /* larger footer only */
+  background: #000;
+  border: 2px solid rgba(0, 255, 255, 0.2);
+  padding: 24px 30px;
+  text-align: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(0.58rem, 2vw, 0.82rem);
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  transition: border-color 0.22s, color 0.22s, box-shadow 0.22s;
+}
+.footer-landing-block:hover {
+  border-color: rgba(0,255,255,0.5);
+  color: var(--accent);
+  box-shadow: 0 0 14px rgba(0,255,255,0.12);
+}
+
+html,body{
+ overflow-x:hidden !important;
+}
+body::before, body::after{
+ display:none !important;
+}
+
+
+/* Final landing hardening */
+.landing-arena {
+  background-attachment: scroll !important;
+}
+
+/* final landing safety override */
+.landing-arena::before{ background: rgba(4, 8, 14, 0.38) !important; }
+.landing-arena::after{ background: rgba(0, 0, 0, 0.04) !important; }

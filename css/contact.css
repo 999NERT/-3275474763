@@ -1,0 +1,236 @@
+/* ============================================================
+   CONTACT VIEW   999NERTAjs ARCADE EDITION
+   ============================================================ */
+
+#view-kontakt {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: clamp(60px, 10vh, 120px) 16px clamp(40px, 6vh, 80px);
+}
+#view-kontakt.active-view {
+  display: flex;
+}
+
+/* ============================================================
+   TERMINAL BOX
+   ============================================================ */
+.contact-terminal {
+  max-width: clamp(300px, 92vw, 580px) !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  background: #000 !important;
+  border: 2px solid var(--accent) !important;
+  box-shadow: 12px 12px 0 var(--accent-glow) !important;
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   WROC BUTTON   below terminal, black bg, full border, separate
+   ============================================================ */
+.contact-wroc-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(0.5rem, 1.5vw, 0.72rem);
+  letter-spacing: 1.5px;
+  color: #ff4455;
+  border: 2px solid rgba(255, 68, 80, 0.6);
+  background: #000;
+  padding: clamp(12px, 2vh, 18px) clamp(20px, 3vw, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  max-width: clamp(300px, 92vw, 580px);
+  margin: clamp(22px, 3vh, 36px) auto 0 auto;
+}
+.contact-wroc-btn:hover {
+  background: #0d0000;
+  border-color: #ff4455;
+  color: #fff;
+  box-shadow: 0 0 14px rgba(255, 68, 80, 0.4);
+  transform: translateY(2px);
+}
+
+/* ============================================================
+   TERMINAL HEADER
+   ============================================================ */
+.terminal-header {
+  background: #000 !important;
+  padding: clamp(12px, 2vh, 18px) clamp(18px, 3vw, 24px) !important;
+  border-bottom: 2px solid var(--accent) !important;
+  font-family: var(--font-mono);
+  font-size: clamp(0.65rem, 1.8vw, 0.9rem) !important;
+  letter-spacing: 2px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  color: var(--accent) !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+
+.terminal-led {
+  width: 11px;
+  height: 11px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent-glow);
+  animation: blink 1.2s infinite;
+  flex-shrink: 0;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+.blink-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+/* ============================================================
+   CONTACT LIST
+   ============================================================ */
+.contact-menu-list {
+  padding: clamp(8px, 1.2vh, 14px) 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+}
+
+.contact-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: clamp(12px, 1.8vh, 18px) clamp(18px, 2.5vw, 26px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  transition: all 0.22s ease !important;
+  color: #aaa !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+.contact-item:last-child {
+  border-bottom: none !important;
+}
+.contact-item:hover {
+  background: rgba(0, 255, 255, 0.05) !important;
+  border-left: 3px solid var(--accent) !important;
+  padding-left: clamp(15px, 2.2vw, 23px) !important;
+  color: var(--accent) !important;
+}
+
+/* ============================================================
+   ICON   inline SVG
+   ============================================================ */
+.contact-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 30px !important;
+  height: 30px !important;
+  flex-shrink: 0 !important;
+}
+.contact-icon svg {
+  width: 26px !important;
+  height: 26px !important;
+  display: block !important;
+  transition: filter 0.22s !important;
+}
+.contact-item:hover .contact-icon svg {
+  filter: none !important;
+}
+
+/* ============================================================
+   LABEL
+   ============================================================ */
+.contact-label {
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: clamp(0.48rem, 1.3vw, 0.68rem) !important;
+  color: #ffffff !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  flex-shrink: 0 !important;
+  min-width: 72px !important;
+}
+
+/* ============================================================
+   HANDLE   no background, just glowing text, bigger & visible
+   ============================================================ */
+.contact-handle {
+  font-family: var(--font-mono) !important;
+  font-size: clamp(0.75rem, 1.7vw, 0.95rem) !important;
+  font-weight: 700 !important;
+  color: #00ffcc !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
+  box-shadow: none !important;
+}
+.contact-item:hover .contact-handle {
+  color: #ffffff !important;
+}
+
+/* ============================================================
+   ARROW
+   ============================================================ */
+.contact-arrow {
+  opacity: 0 !important;
+  transition: opacity 0.2s, transform 0.2s !important;
+  font-size: 1rem !important;
+  color: var(--accent) !important;
+  flex-shrink: 0 !important;
+}
+.contact-item:hover .contact-arrow {
+  opacity: 1 !important;
+  transform: translateX(5px) !important;
+}
+
+/* ============================================================
+   STATUS BAR
+   ============================================================ */
+.terminal-status {
+  padding: clamp(14px, 2.2vh, 22px) clamp(18px, 2.5vw, 28px) !important;
+  border-top: 2px solid var(--accent) !important;
+  background: rgba(0, 255, 136, 0.07) !important;
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: clamp(0.44rem, 1.1vw, 0.63rem) !important;
+  line-height: 2 !important;
+  color: #00ff88 !important;
+  letter-spacing: 1.5px !important;
+  text-align: center !important;
+  text-shadow:
+    0 0 10px rgba(0, 255, 136, 0.8),
+    0 0 24px rgba(0, 255, 136, 0.35) !important;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .contact-terminal {
+    box-shadow: 6px 6px 0 rgba(0, 255, 255, 0.22) !important;
+  }
+  .contact-wroc-btn {
+    max-width: 100%;
+    margin-top: 18px;
+  }
+  .contact-item {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 11px 13px !important;
+  }
+  .contact-handle {
+    font-size: 0.68rem !important;
+  }
+  .contact-label {
+    font-size: 0.43rem !important;
+    min-width: 54px !important;
+  }
+}

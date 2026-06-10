@@ -1,0 +1,53 @@
+[
+    {
+        "id": "vfx-5",
+        "title": "CS2 EDIT #5",
+        "videoUrl": "https://youtu.be/t9yJ2nRMS9c",
+        "thumbnail": "/images/1000.jpg",
+        "software": "After Effects, Premiere Pro, UE5",
+        "duration": "4 tyg.",
+        "date": "08.03.2026",
+        "client": "Angelkacs"
+    },
+
+    {
+        "id": "vfx-4",
+        "title": "CS2 EDIT #4",
+        "videoUrl": "https://youtu.be/FrXIH2mBAfE",
+        "thumbnail": "/images/trzeba.jpg",
+        "software": "After Effects, Premiere Pro, Blender",
+        "duration": "3 tyg.",
+        "date": "13.01.2026",
+        "client": "Angelkacs"
+    },
+    {
+        "id": "vfx-3",
+        "title": "CS2 EDIT #3",
+        "videoUrl": "https://youtu.be/k3IZYMkMwec",
+        "thumbnail": "/images/tudi1.jpg",
+        "software": "After Effects, Premiere Pro, Blender",
+        "duration": "1 mies.",
+        "date": "05.03.2023",
+        "client": "tudsoN"
+    },
+    {
+        "id": "vfx-2",
+        "title": "CS2 EDIT #2",
+        "videoUrl": "https://youtu.be/XOn8UJSLKEQ",
+        "thumbnail": "/images/angelka2.jpg",
+        "software": "After Effects, Premiere Pro",
+        "duration": "2 tyg.",
+        "date": "30.08.2025",
+        "client": "Angelkacs"
+    },
+    {
+        "id": "vfx-1",
+        "title": "CS2 EDIT #1",
+        "videoUrl": "https://youtu.be/wbRoVp0Ni5Q",
+        "thumbnail": "/images/angelka1.jpg",
+        "software": "After Effects, Premiere Pro",
+        "duration": "2 tyg.",
+        "date": "10.06.2025",
+        "client": "Angelkacs"
+    }
+]

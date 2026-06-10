@@ -1,0 +1,1196 @@
+:root {
+  --bg: #000000;
+  --surface: #000000;
+  --surface2: #000000;
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.25);
+  --text: #f0f0f0;
+  --text-muted: #aaa;
+  --text-dim: #555;
+
+
+  --accent: #00ffff;
+  --accent-dark: #00cccc;
+  --accent-glow: rgba(0, 255, 255, 0.25);
+
+
+  --red: #ff3b3b;
+
+
+  --col-ue5:       #0085ff;
+  --col-blender:   #e87d0d;
+  --col-substance: #00c87f;
+  --col-ae:        #9f7fff;
+  --col-premiere:  #cc77ff;
+  --col-marvelous: #ff5555;
+
+
+  --col-date:     #ffaa40;
+  --col-client:   #00ff88;
+  --col-duration: #777777;
+
+
+  --col-youtube:  #ff0000;
+  --col-telegram: #2ca5e0;
+  --col-instagram:#e1306c;
+  --col-tiktok:   #ffffff;
+  --col-twitter:  #e0e0e0;
+  --col-facebook: #1877f2;
+  --col-email:    #ff9944;
+
+  --font-arcade: 'Orbitron', 'Share Tech Mono', 'Press Start 2P', 'Chakra Petch', monospace;
+  --font-mono:   'Share Tech Mono', 'Courier New', monospace;
+  --ease: cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+body::-webkit-scrollbar { display: none; }
+main { padding-bottom: 0; }
+
+body {
+  background: var(--bg);
+  background-image: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-arcade);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.02em;
+}
+body.no-scroll { overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+
+
+body::before { display: none; }
+
+
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s var(--ease);
+}
+.pre-logo {
+  font-family: var(--font-arcade);
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent);
+  animation: glitchPulse 0.8s infinite alternate;
+}
+@keyframes glitchPulse {
+  0%   { opacity: 0.6; text-shadow: -2px 0 var(--red); }
+  100% { opacity: 1;   text-shadow:  2px 0 var(--accent); }
+}
+
+
+.main-view {
+  display: none;
+  min-height: 100vh;
+}
+.main-view.active-view {
+  display: block;
+  animation: fadeInView 0.40s var(--ease) both;
+}
+.main-view.view-exiting {
+  display: block !important;
+  pointer-events: none;
+  animation: fadeOutView 0.28s ease-in both;
+}
+@keyframes fadeInView {
+  from { opacity: 0; transform: translateY(18px) scale(0.995); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+@keyframes fadeOutView {
+  from { opacity: 1; transform: translateY(0)     scale(1); }
+  to   { opacity: 0; transform: translateY(-12px) scale(0.995); }
+}
+
+
+.view-bg-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(4, 8, 14, 0.80);
+  backdrop-filter: blur(6px) saturate(1.2);
+  -webkit-backdrop-filter: blur(6px) saturate(1.2);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.view-bg-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 255, 255, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.075) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+#view-kontakt  > *:not(.view-bg-overlay),
+#view-projekty > *:not(.view-bg-overlay) {
+  position: relative;
+  z-index: 1;
+}
+
+.main-view,
+.landing-arena,
+.projekty-window,
+.portfolio-home-inner,
+.section-arcade,
+.home-chips-bar,
+.home-chips-row,
+.recent-grid,
+.recent-strip,
+.hero-arcade,
+.hero-role-arcade {
+  background-color: transparent;
+}
+
+
+.recent-card,
+.proj-card,
+.model-card,
+.collab-card,
+.contact-terminal,
+.settings-window,
+.stat-box-arcade,
+.menu-block,
+.menu-block--settings,
+.proj-tab-btn,
+.back-tab-btn,
+.view-back-btn,
+.lang-btn,
+.proj-meta-bar,
+.proj-chips {
+  background-color: #000;
+}
+
+/* Contact section uses contant.css fluid scaling */
+.contact-terminal {
+  background: #000 !important;
+  border-width: 2px !important;
+  box-shadow: 12px 12px 0 var(--accent-glow) !important;
+}
+
+.terminal-header {
+  background: var(--surface2) !important;
+  border-bottom-width: 2px !important;
+  border-bottom-color: var(--accent) !important;
+}
+
+.contact-item {
+  border-bottom: 1px solid var(--border) !important;
+  transition: all 0.25s ease !important;
+}
+
+.contact-item:hover {
+  border-left: 4px solid var(--accent) !important;
+  background: rgba(0, 255, 255, 0.08) !important;
+}
+
+.terminal-status {
+  border-top: 2px solid var(--accent) !important;
+  background: rgba(0, 255, 255, 0.04) !important;
+}
+
+
+.lang-badge-wrap {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  z-index: 10;
+}
+.lang-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--accent);
+  border: 1.5px solid rgba(0,255,255,0.5);
+  padding: 4px 10px;
+  background: rgba(0,0,0,0.6);
+}
+
+
+.hero-role-arcade { background: #000 !important; }
+.section-arcade--recent { margin-top: 52px !important; }
+
+
+html, body {
+  overflow-x: hidden !important;
+  overscroll-behavior: none !important;
+}
+.landing-arena {
+  background-attachment: scroll !important;
+}
+.landing-arena::before {
+  background: rgba(4, 8, 14, 0.50) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.landing-arena::after {
+  background: rgba(0, 0, 0, 0.10) !important;
+}
+.projekty-tab-bar {
+  gap: 8px !important;
+  margin-bottom: 18px !important;
+  padding-bottom: 8px !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+.proj-tab-btn {
+  background: #000 !important;
+  padding: 8px 14px !important;
+  font-size: 0.56rem !important;
+  min-height: 0 !important;
+}
+.back-tab-btn {
+  padding: 8px 12px !important;
+  font-size: 0.52rem !important;
+}
+.proj-card, .model-card {
+  overflow: hidden !important;
+  transform: none !important;
+}
+.proj-card:hover, .model-card:hover {
+  transform: none !important;
+}
+.proj-card::before, .model-card::before,
+.proj-card::after, .model-card::after {
+  display: none !important;
+}
+.proj-card:hover .proj-thumb img,
+.model-card:hover .model-thumb img {
+  transform: none !important;
+  filter: brightness(0.88) saturate(1.1) !important;
+}
+.proj-hover-overlay, .model-hover-overlay {
+  background: rgba(0, 0, 0, 0.56) !important;
+  opacity: 0 !important;
+}
+.proj-card:hover .proj-hover-overlay,
+.model-card:hover .model-hover-overlay {
+  opacity: 1 !important;
+}
+.proj-hover-avatar, .modal-avatar {
+  width: 72px !important;
+  height: 72px !important;
+  border-radius: 8px !important;
+}
+.proj-meta-bar {
+  padding: 8px 12px !important;
+  min-height: 32px !important;
+  font-size: 0.68rem !important;
+}
+.meta-date {
+  color: var(--accent) !important;
+}
+.meta-dur {
+  color: #d6d6d6 !important;
+}
+.meta-client {
+  color: #cfe9ff !important;
+}
+.section-arcade--recent {
+  margin-top: 58px !important;
+}
+.projects-grid, .models-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+@media (min-width: 2560px) {
+  .portfolio-arcade { max-width: 2400px !important; }
+}
+
+
+.projekty-tab-bar{
+  gap: 15px !important;
+}
+.tab-btns-center{
+  gap: 14px !important;
+}
+.proj-tab-btn{
+  font-size: 0.68rem !important;
+  padding: 11px 18px !important;
+}
+.back-tab-btn{
+  font-size: 0.64rem !important;
+  padding: 11px 16px !important;
+}
+.projects-grid,
+.models-grid{
+  gap: 16px !important;
+}
+.proj-hover-overlay,
+.model-hover-overlay{
+  gap: 6px !important;
+  padding: 14px !important;
+}
+.proj-hover-avatar{
+  width: 88px !important;
+  height: 88px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: 0 8px 26px rgba(0,255,255,0.14) !important;
+  border-radius: 0 !important;
+  object-fit: contain !important;
+}
+.proj-title-hover{
+  margin-top: -8px !important;
+  font-size: 0.9rem !important;
+  line-height: 1.45 !important;
+}
+.tool-chip--logo{
+  gap: 8px !important;
+}
+.tool-chip-logo{
+  width: 18px !important;
+  height: 18px !important;
+  object-fit: contain !important;
+  display: block !important;
+  flex: 0 0 auto !important;
+  filter: drop-shadow(0 0 4px rgba(0,0,0,0.45));
+}
+.tool-chip--logo::before{
+  content: none !important;
+  display: none !important;
+}
+.tool-chip--logo .tool-chip-text{
+  display: inline-block;
+}
+.tool-chip--blender{
+  color: var(--col-blender) !important;
+  border-color: rgba(232,125,13,0.55) !important;
+  background: rgba(232,125,13,0.09) !important;
+}
+.tool-chip--unreal{
+  color: var(--col-ue5) !important;
+  border-color: rgba(0,133,255,0.55) !important;
+  background: rgba(0,133,255,0.09) !important;
+}
+@media (max-width: 900px){
+  .proj-tab-btn{ padding: 9px 14px !important; font-size: 0.58rem !important; }
+  .back-tab-btn{ padding: 9px 12px !important; font-size: 0.54rem !important; }
+  .projects-grid,.models-grid{ gap: 12px !important; }
+  .proj-hover-avatar{ width: 72px !important; height: 72px !important; }
+  .proj-title-hover{ font-size: 0.78rem !important; }
+}
+
+
+.projekty-tab-bar{
+  gap: clamp(14px, 1vw, 20px) !important;
+}
+.tab-btns-center{
+  gap: clamp(14px, 1.05vw, 20px) !important;
+}
+.back-tab-btn,
+.proj-tab-btn{
+  font-size: clamp(0.68rem, 0.55vw, 0.82rem) !important;
+  padding: clamp(10px, 0.7vw, 14px) clamp(16px, 1vw, 22px) !important;
+}
+.back-tab-btn{
+  letter-spacing: 1px !important;
+}
+.proj-tab-btn{
+  letter-spacing: 1px !important;
+}
+
+
+.landing-arena::before{
+  background: rgba(4, 8, 14, 0.38) !important;
+}
+.landing-arena::after{
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+
+.proj-hover-overlay,
+.model-hover-overlay{
+  justify-content: flex-start !important;
+  padding-top: 22px !important;
+  gap: 4px !important;
+  background: rgba(0, 0, 0, 0.52) !important;
+}
+.proj-hover-avatar{
+  width: 96px !important;
+  height: 96px !important;
+  margin-top: 4px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  border-radius: 0 !important;
+}
+.proj-hover-overlay .proj-title-hover,
+.model-hover-overlay .proj-title-hover{
+  margin-top: -2px !important;
+  font-size: clamp(0.78rem, 0.42vw, 0.92rem) !important;
+  line-height: 1.45 !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.85) !important;
+}
+
+
+.tool-chip--logo .tool-chip-logo{
+  width: 20px !important;
+  height: 20px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  object-fit: contain !important;
+}
+.tool-chip--logo::before,
+.tool-chip--logo::after{
+  display: none !important;
+}
+
+
+.projects-grid,
+.models-grid{
+  gap: clamp(13px, 1vw, 20px) !important;
+}
+@media (min-width: 1800px) {
+  .portfolio-arcade { max-width: 1900px !important; }
+}
+@media (min-width: 2560px){
+  .portfolio-arcade{ max-width: 2400px !important; }
+}
+
+
+.landing-center {
+  max-width: 720px !important;
+  padding: 0 20px 16px !important;
+}
+.px-logo {
+  width: 184px !important;
+  height: 184px !important;
+  margin-bottom: 24px !important;
+}
+.landing-title {
+  font-size: clamp(1.3rem, 4vw, 2.2rem) !important;
+  letter-spacing: 2px !important;
+}
+.landing-title em {
+  color: var(--accent);
+  font-style: normal;
+}
+.landing-sub {
+  font-size: 0.76rem !important;
+  margin-bottom: 38px !important;
+}
+.landing-menu {
+  max-width: 520px !important;
+  gap: 12px !important;
+}
+.menu-block {
+  padding: 24px 30px !important;
+  outline: none !important;
+}
+.menu-block:focus,
+.menu-block:focus-visible,
+.proj-tab-btn:focus,
+.proj-tab-btn:focus-visible,
+.back-tab-btn:focus,
+.back-tab-btn:focus-visible,
+.view-back-btn:focus,
+.view-back-btn:focus-visible,
+.lang-btn:focus,
+.lang-btn:focus-visible,
+#modalClose:focus,
+#modalClose:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+.menu-block--settings:hover {
+  background: #000 !important;
+  border-color: var(--accent) !important;
+  box-shadow:
+    0 0 0 1px var(--accent),
+    0 0 18px rgba(0, 255, 255, 0.14) !important;
+}
+
+
+.portfolio-arcade {
+  /* Using clamp() from base CSS - no override needed */
+}
+.projekty-tab-bar {
+  gap: clamp(12px, 2vw, 18px) !important;
+  margin-bottom: clamp(16px, 2vw, 22px) !important;
+}
+.tab-btns-center {
+  gap: clamp(12px, 2vw, 18px) !important;
+}
+.window-outline {
+  /* Using clamp() from base CSS - no override needed */
+}
+.projects-grid,
+.models-grid {
+  /* Using clamp() from base CSS - no override needed */
+}
+
+
+.proj-meta-bar {
+  padding: 8px 12px !important;
+  min-height: 34px !important;
+  font-size: 0.66rem !important;
+  gap: 6px 10px !important;
+}
+.meta-dur,
+.meta-date,
+.meta-client {
+  font-size: 0.74rem !important;
+}
+.meta-dur i,
+.meta-date i,
+.meta-client i {
+  font-size: 0.64rem !important;
+}
+
+
+.proj-chips {
+  gap: 8px !important;
+  padding: 8px 12px 10px !important;
+  min-height: 40px !important;
+}
+.home-chips-row {
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+.tool-chip {
+  gap: 7px !important;
+  padding: 7px 12px 7px 8px !important;
+  font-size: 0.72rem !important;
+}
+.tool-chip--logo {
+  gap: 5px !important;
+}
+.tool-chip-logo {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+
+.settings-window {
+  max-width: 700px !important;
+}
+.win-titlebar {
+  padding: 16px 24px !important;
+  font-size: 0.95rem !important;
+}
+.settings-content {
+  padding: 32px !important;
+  gap: 16px !important;
+}
+.settings-content p {
+  font-size: 0.94rem !important;
+  gap: 12px !important;
+  padding-left: 12px !important;
+}
+
+
+.section-arcade--recent h3 {
+  font-size: 1rem !important;
+  letter-spacing: 1.4px !important;
+}
+.recent-slider-shell {
+  gap: 12px !important;
+}
+.recent-card {
+  flex: 0 0 clamp(240px, 22vw, 320px) !important;
+  width: clamp(240px, 22vw, 320px) !important;
+}
+.recent-title {
+  font-size: 0.55rem !important;
+}
+.recent-meta {
+  font-size: 0.58rem !important;
+}
+
+@media (max-width: 900px) {
+  .landing-center {
+    max-width: 100% !important;
+    padding: 0 18px 14px !important;
+  }
+  .px-logo {
+    width: 160px !important;
+    height: 160px !important;
+  }
+  .portfolio-arcade {
+    max-width: 100% !important;
+    padding: 20px 16px 56px !important;
+  }
+  .window-outline {
+    min-height: 460px !important;
+  }
+  .menu-block {
+    padding: 17px 24px !important;
+  }
+  .proj-meta-bar {
+    font-size: 0.62rem !important;
+  }
+  .meta-dur,
+  .meta-date,
+  .meta-client {
+    font-size: 0.68rem !important;
+  }
+  .tool-chip {
+    padding: 5px 9px 5px 8px !important;
+    font-size: 0.62rem !important;
+    gap: 6px !important;
+  }
+  .tool-chip-logo {
+    width: 15px !important;
+    height: 15px !important;
+  }
+  .home-chips-row {
+    gap: 10px !important;
+  }
+}
+
+
+.portfolio-home-inner {
+  padding-bottom: 42px !important;
+  gap: 14px !important;
+}
+.hero-arcade {
+  padding-top: 0 !important;
+}
+.hero-role-arcade {
+  margin-bottom: 18px !important;
+  padding: 16px 24px !important;
+}
+.home-chips-bar {
+  margin-top: 14px !important;
+}
+.home-chips-row {
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 7px !important;
+  margin-left: 12px !important;
+  flex-wrap: wrap !important;
+}
+.home-chips-row .tool-chip {
+  padding: 11px 20px 11px 14px !important;
+  font-size: 0.88rem !important;
+  gap: 11px !important;
+}
+.home-chips-row .tool-chip-img {
+  width: 26px !important;
+  height: 26px !important;
+}
+.tool-chip--logo {
+  justify-content: center !important;
+  gap: 5px !important;
+  padding-left: 11px !important;
+  padding-right: 14px !important;
+}
+.tool-chip-logo {
+  margin-right: 0 !important;
+}
+
+
+.section-arcade--recent {
+  margin-top: 30px !important;
+  padding-bottom: 14px !important;
+}
+.section-arcade--recent h3 {
+  margin-bottom: 10px !important;
+}
+.recent-slider-shell {
+  gap: 10px !important;
+}
+.recent-carousel {
+  padding-bottom: 12px !important;
+}
+
+
+.projects-grid,
+.models-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+}
+.pagination-row {
+  margin-top: 24px !important;
+}
+
+
+.win-titlebar {
+  padding: 18px 26px !important;
+  font-size: 1rem !important;
+}
+.settings-content p {
+  font-size: 0.97rem !important;
+}
+
+
+.portfolio-arcade {
+  padding-bottom: 64px !important;
+}
+
+
+.portfolio-arcade {
+  max-width: 1800px !important;
+  padding-left: 22px !important;
+  padding-right: 22px !important;
+}
+
+.projects-grid,
+.models-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 18px !important;
+}
+
+.proj-hover-overlay,
+.model-hover-overlay {
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 8px !important;
+  padding: 14px 18px !important;
+}
+
+.proj-hover-avatar {
+  margin: 0 auto !important;
+}
+
+.proj-hover-overlay .proj-title-hover,
+.model-hover-overlay .proj-title-hover {
+  margin-top: 0 !important;
+  padding: 0 10px !important;
+}
+
+.tool-chip--si .tool-chip-img {
+  image-rendering: auto;
+}
+
+
+.home .tool-chip-logo,
+.home-view .tool-chip-logo,
+.profile-software .tool-chip-logo{
+  width:20px !important;
+  height:20px !important;
+}
+
+:root {
+  --col-client: #00ff88;
+}
+
+.meta-client {
+  color: #00ff88 !important;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.72) !important;
+}
+
+.meta-client i {
+  color: #00ff88 !important;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.72) !important;
+}
+
+@media (max-width: 1920px) and (max-height: 1100px) {
+  .portfolio-arcade {
+    max-width: 1650px !important;
+    padding: 18px 18px 52px !important;
+  }
+
+  .projekty-tab-bar {
+    gap: 12px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .tab-btns-center {
+    gap: 12px !important;
+  }
+
+  .back-tab-btn,
+  .proj-tab-btn {
+    font-size: 0.62rem !important;
+    padding: 10px 14px !important;
+  }
+
+  .window-outline {
+    min-height: 0 !important;
+    padding: 6px 0 18px !important;
+  }
+
+  .projects-grid,
+  .models-grid {
+    gap: 14px !important;
+  }
+
+  .portfolio-home-inner {
+    padding-bottom: 48px !important;
+    gap: 12px !important;
+  }
+
+  .hero-role-arcade {
+    margin-bottom: 16px !important;
+    padding: 16px 22px !important;
+  }
+
+  .home-chips-bar {
+    margin-top: 10px !important;
+  }
+
+  .section-arcade--recent {
+    margin-top: 24px !important;
+    padding-bottom: 12px !important;
+  }
+
+  .recent-slider-shell {
+    gap: 10px !important;
+  }
+
+  .recent-carousel {
+    padding-bottom: 14px !important;
+  }
+
+  .recent-card {
+    flex: 0 0 clamp(240px, 22vw, 300px) !important;
+    width: clamp(240px, 22vw, 300px) !important;
+  }
+
+  .proj-meta-bar {
+    padding: 7px 10px !important;
+    min-height: 30px !important;
+    font-size: 0.64rem !important;
+  }
+
+  .proj-chips {
+    padding: 7px 10px 9px !important;
+    min-height: 36px !important;
+  }
+
+  .meta-client {
+    color: #00ff88 !important;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.78) !important;
+  }
+
+  .meta-client i {
+    color: #00ff88 !important;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.78) !important;
+  }
+}
+
+@media (min-width: 1800px) {
+  /* Use fluid scales from base CSS - no override needed */
+}
+
+@media (min-width: 2560px) {
+  /* Use fluid scales from base CSS - no override needed */
+}
+
+@media (max-width: 900px) {
+  .landing-center {
+    max-width: 100% !important;
+    padding: 0 18px 14px !important;
+  }
+
+  .px-logo {
+    width: 160px !important;
+    height: 160px !important;
+  }
+
+  .portfolio-arcade {
+    max-width: 100% !important;
+    padding: 20px 16px 56px !important;
+  }
+
+  .window-outline {
+    min-height: 460px !important;
+  }
+
+  .menu-block {
+    padding: 17px 24px !important;
+  }
+
+  .proj-meta-bar {
+    font-size: 0.62rem !important;
+  }
+
+  .meta-dur,
+  .meta-date,
+  .meta-client {
+    font-size: 0.68rem !important;
+  }
+
+  .tool-chip {
+    padding: 5px 9px 5px 8px !important;
+    font-size: 0.62rem !important;
+    gap: 6px !important;
+  }
+
+  .tool-chip-logo {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .home-chips-row {
+    gap: 10px !important;
+  }
+
+  .recent-card {
+    flex-basis: 82vw !important;
+    width: 82vw !important;
+  }
+}
+
+.home .tool-chip-logo,
+.home-view .tool-chip-logo,
+.profile-software .tool-chip-logo {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+
+
+
+
+/* ================================================================
+   MOBILE ONLY — poprawki wyłącznie na max-width: 768px
+   ================================================================ */
+@media (max-width: 768px) {
+
+  /* 1 ── USUŃ SCROLLBAR ─────────────────────────────────────── */
+  html, body,
+  #view-projekty .window-outline,
+  .tab-btns-center {
+    scrollbar-width: none !important;
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  #view-projekty .window-outline::-webkit-scrollbar,
+  .tab-btns-center::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+  }
+
+  /* 1.5 ── PORTFOLIO CONTAINER: zmniejsz padding ────────────── */
+  .portfolio-arcade {
+    padding: clamp(12px, 2vw, 20px) 0 clamp(40px, 6vh, 60px) !important;
+    max-width: 100% !important;
+  }
+
+  /* 2 ── TAB BAR: poziomy scroll, 05 COLLABS widoczny ─────── */
+  .projekty-tab-bar {
+    flex-wrap: nowrap !important;
+    overflow: visible !important;
+    gap: 4px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .back-tab-btn {
+    flex-shrink: 0 !important;
+    padding: 5px 6px !important;
+    font-size: 0.38rem !important;
+    width: auto !important;
+  }
+  .tab-btns-center {
+    flex: 1 !important;
+    flex-wrap: nowrap !important;
+    overflow-x: scroll !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    justify-content: flex-start !important;
+    gap: 3px !important;
+    scroll-behavior: auto !important;
+    padding: 0 4px !important;
+    scrollbar-width: none !important;
+    height: auto !important;
+    width: auto !important;
+  }
+  .tab-btns-center::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  .proj-tab-btn,
+  .tab-btns-center .back-tab-btn {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    font-size: 0.40rem !important;
+    padding: 5px 7px !important;
+    min-width: fit-content !important;
+    border-width: 1px !important;
+    letter-spacing: 0px !important;
+  }
+
+  /* 3 ── SOFTWARE CHIPS na HOME: mniejsze, równe zawijanie ─── */
+  .sw-chip--home {
+    padding: 6px 9px !important;
+    font-size: 0.58rem !important;
+    gap: 5px !important;
+    border-width: 1px !important;
+  }
+  .home-chips-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+
+  /* 4 ── RECENT WORK: 1 karta na raz, JS obsługuje slide ───── */
+  .section-arcade {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+  .section-arcade h3 {
+    margin-bottom: 12px !important;
+    padding: 0 16px !important;
+  }
+  .recent-slider-shell {
+    overflow: hidden !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+  }
+  .recent-carousel {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+    transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.4, 1.1) !important;
+    will-change: transform;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  /* Szerokość każdej karty ustawia JS (shell.offsetWidth px) */
+  .recent-card {
+    flex-shrink: 0 !important;
+    background: #000 !important;
+    border: 1px solid rgba(0,255,255,0.3) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 380px !important;
+  }
+  .recent-thumb {
+    aspect-ratio: 16/9 !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    background: #111 !important;
+    flex-shrink: 0 !important;
+  }
+  .recent-thumb img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+  .recent-info {
+    padding: 12px !important;
+    background: #000 !important;
+    flex: 1 !important;
+    overflow-y: auto !important;
+    font-size: 0.50rem !important;
+  }
+  /* Rząd nawigacji ‹ 1/9 › */
+  .recent-nav-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    margin-top: 10px !important;
+  }
+  .recent-nav-btn {
+    background: rgba(0,255,255,0.06) !important;
+    border: 1.5px solid rgba(0,255,255,0.4) !important;
+    color: var(--accent) !important;
+    font-size: 1rem !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    cursor: pointer !important;
+    transition: background 0.18s !important;
+    font-family: inherit !important;
+    padding: 0 !important;
+  }
+  .recent-nav-btn:active   { background: rgba(0,255,255,0.2); }
+  .recent-nav-btn:disabled { opacity: 0.2; cursor: default; }
+  .recent-nav-counter {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 3px;
+    min-width: 52px;
+    text-align: center;
+  }
+
+  /* 5 ── PROJ-CHIPS 02/03/04: mniejsze ───────────────────── */
+  .proj-chips .sw-chip,
+  .proj-chips .tool-chip {
+    font-size: 0.48rem !important;
+    padding: 4px 6px !important;
+    gap: 4px !important;
+  }
+  .proj-chips .tool-chip-img,
+  .proj-chips .tool-chip-logo {
+    width: 10px !important;
+    height: 10px !important;
+  }
+  .proj-chips {
+    gap: 4px !important;
+    padding: 5px 8px 6px !important;
+    min-height: 0 !important;
+  }
+
+  /* 6 ── COLLABS: pionowy scroll bez obcinania ────────────── */
+  #view-projekty .window-outline {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    max-height: none !important;
+    min-height: auto !important;
+    height: auto !important;
+  }
+  .collabs-list {
+    grid-template-columns: 1fr !important;
+    padding: 8px !important;
+    gap: 8px !important;
+  }
+  .collab-card {
+    padding: 10px 8px !important;
+    gap: 8px !important;
+    border-width: 1px !important;
+  }
+  .collab-avatar {
+    width: 48px !important;
+    height: 48px !important;
+  }
+  .collab-status {
+    font-size: 0.48rem !important;
+  }
+  .collab-link {
+    font-size: 0.46rem !important;
+  }
+}

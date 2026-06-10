@@ -1,0 +1,325 @@
+/* ============================================================
+   SHARED FOUNDATION
+   Purpose: Global variables, resets, overlays, preloader, modal, and shared utilities.
+   Notes for AI/code editors:
+   - Keep selectors in sync with app.js data-main / data-subtab values.
+   - Preserve the section name when moving or extending rules.
+   ============================================================ */
+
+/* ============================================================
+   999NERTAjs - ARCADE EDITION  |  UPDATED v2
+   Accent: CYAN #00ffff  |  BG: tlomain.png + grid 50% opacity
+   ============================================================ */
+
+:root {
+  --bg: #000000;
+  --surface: #000000;
+  --surface2: #000000;
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.25);
+  --text: #f0f0f0;
+  --text-muted: #aaa;
+  --text-dim: #555;
+
+  /* === MAIN ACCENT - CYAN (matches pxArt eye logo) === */
+  --accent: #00ffff;
+  --accent-dark: #00cccc;
+  --accent-glow: rgba(0, 255, 255, 0.25);
+
+  /* === SECONDARY === */
+  --red: #ff3b3b;
+
+  /* === SOFTWARE CHIP COLORS === */
+  --col-ue5:       #0085ff;
+  --col-blender:   #e87d0d;
+  --col-substance: #00c87f;
+  --col-ae:        #9f7fff;
+  --col-premiere:  #cc77ff;
+  --col-marvelous: #ff5555;
+
+  /* === META / SEMANTIC COLORS === */
+  --col-date:     #ffaa40;   /* orange    dates */
+  --col-client:   #44ffaa;   /* mint      client names */
+  --col-duration: #777777;   /* grey      duration */
+
+  /* === SOCIAL PLATFORM COLORS === */
+  --col-youtube:  #ff0000;
+  --col-telegram: #2ca5e0;
+  --col-instagram:#e1306c;
+  --col-tiktok:   #ffffff;
+  --col-twitter:  #e0e0e0;
+  --col-facebook: #1877f2;
+  --col-email:    #ff9944;
+
+  --font-arcade: 'Orbitron', 'Share Tech Mono', 'Press Start 2P', 'Chakra Petch', monospace;
+  --font-mono:   'Share Tech Mono', 'Courier New', monospace;
+  --ease: cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; scrollbar-width: none; scrollbar-gutter: stable; }
+html::-webkit-scrollbar { display: none; }
+body::-webkit-scrollbar { display: none; }
+main { padding-bottom: 0; }
+
+html, body { background: #000; }
+
+body {
+  background: var(--bg);
+  background-image: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  color: var(--text);
+  font-family: var(--font-arcade);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.02em;
+  scrollbar-gutter: stable;
+}
+body.no-scroll { overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+
+/* CRT scanlines overlay removed for a cleaner grid */
+
+/* ============================================================
+   PRELOADER
+   ============================================================ */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s var(--ease);
+  animation: preloaderAutoHide 0.6s ease forwards 2s;
+}
+.pre-logo {
+  font-family: var(--font-arcade);
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent);
+  animation: glitchPulse 0.8s infinite alternate;
+}
+@keyframes glitchPulse {
+  0%   { opacity: 0.6; text-shadow: -2px 0 var(--red); }
+  100% { opacity: 1;   text-shadow:  2px 0 var(--accent); }
+}
+@keyframes preloaderAutoHide {
+  0%, 99% { opacity: 1; pointer-events: auto; visibility: visible; }
+  100% { opacity: 0; pointer-events: none; visibility: hidden; }
+}
+
+/* ============================================================
+   MAIN VIEW SYSTEM
+   ============================================================ */
+.main-view {
+  display: none;
+  min-height: 100vh;
+}
+.main-view.active-view {
+  display: block;
+  animation: fadeInView 0.40s var(--ease) both;
+}
+.main-view.view-exiting {
+  display: block !important;
+  pointer-events: none;
+  animation: fadeOutView 0.28s ease-in both;
+}
+@keyframes fadeInView {
+  from { opacity: 0; transform: translateY(18px) scale(0.995); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+@keyframes fadeOutView {
+  from { opacity: 1; transform: translateY(0)     scale(1); }
+  to   { opacity: 0; transform: translateY(-12px) scale(0.995); }
+}
+
+/* ============================================================
+   BACK BAR
+   ============================================================ */
+/* back-bar removed - moved to tab bar */
+
+/* Dark overlay for non-landing views   glassmorphism + grid over tlomain.png */
+.view-bg-overlay {
+  position: fixed;
+  inset: 0;
+  /* glass dark tint */
+  background: rgba(4, 8, 14, 0.64);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  z-index: 0;
+  pointer-events: none;
+}
+/* cyan grid overlay on top of glass */
+.view-bg-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 76px 76px;
+  pointer-events: none;
+}
+/* All direct children of non-landing views sit above overlay */
+#view-kontakt  > *:not(.view-bg-overlay),
+#view-regulamin    > *:not(.view-bg-overlay),
+#view-projekty > *:not(.view-bg-overlay) {
+  position: relative;
+  z-index: 1;
+}
+/* ============================================================
+   CONTAINER BACKGROUNDS  transparent so fixed grid shows through
+   Cards and interactive elements keep solid #000 for contrast
+   ============================================================ */
+.main-view,
+.landing-arena,
+.projekty-window,
+.portfolio-home-inner,
+.section-arcade,
+.home-chips-bar,
+.home-chips-row,
+.recent-grid,
+.recent-strip,
+.hero-arcade,
+.hero-role-arcade {
+  background-color: transparent;
+}
+
+/* Cards + interactive: keep solid black */
+.recent-card,
+.proj-card,
+.model-card,
+.kontakt-terminal,
+.settings-window,
+.stat-box-arcade,
+.menu-block,
+.menu-block--settings,
+.proj-tab-btn,
+.back-tab-btn,
+.view-back-btn,
+.lang-btn,
+.proj-meta-bar,
+.proj-chips {
+  background-color: #000;
+}
+
+/* ============================================================
+   LANG BADGE  (top-right on landing)
+   ============================================================ */
+.lang-badge-wrap {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  z-index: 10;
+}
+.lang-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--accent);
+  border: 1.5px solid rgba(0,255,255,0.5);
+  padding: 4px 10px;
+  background: rgba(0,0,0,0.6);
+}
+/* user tweak: remove scanline line */
+body::before { content: none !important; }
+
+/* ============================================================
+   PRELOADER GAME BAR
+   (moved from inline <style> in index.html)
+   ============================================================ */
+.pre-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.pre-logo-img {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  animation: pre-float 2s ease-in-out infinite;
+}
+@keyframes pre-float {
+  0%,100% { transform: translateY(0);    filter: drop-shadow(0 0 10px #00ffe788); }
+  50%      { transform: translateY(-5px); filter: drop-shadow(0 0 20px #00ffe7cc); }
+}
+.pre-logo-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1rem;
+  color: #fff;
+  letter-spacing: 5px;
+}
+.pre-logo-name em { font-style: normal; color: #00ffe7; }
+
+.pre-bar-shell { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.pre-bar-track {
+  width: 300px;
+  height: 18px;
+  border: 2px solid #00ffe7cc;
+  background: #00ffe708;
+  box-shadow: 0 0 10px #00ffe755, inset 0 0 4px #00000066;
+  overflow: hidden;
+  position: relative;
+}
+.pre-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: repeating-linear-gradient(
+    90deg,
+    #00ffe7 0px, #00ffe7 14px,
+    #002a28 14px, #002a28 16px
+  );
+  box-shadow: 0 0 12px #00ffe799;
+  animation: pre-bar-fill 0.8s steps(18, end) 0.15s forwards;
+}
+@keyframes pre-bar-fill { to { width: 100%; } }
+.pre-bar-caption {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  color: #00ffe799;
+  letter-spacing: 0.25em;
+}
+.pre-dots::after {
+  content: '';
+  animation: pre-dots-anim 1.2s steps(4, end) infinite;
+}
+@keyframes pre-dots-anim {
+  0%  { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
+
+
+/* === hardening / edge fix === */
+.landing-arena {
+  background-attachment: scroll !important;
+  isolation: isolate;
+}
+.landing-arena::before {
+  background: rgba(4, 8, 14, 0.50) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.landing-arena::after {
+  background: rgba(0, 0, 0, 0.10) !important;
+}
+html, body {
+  overflow-x: hidden !important;
+  overscroll-behavior: none;
+}
