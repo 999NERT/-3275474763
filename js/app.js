@@ -289,7 +289,7 @@ class ArcadePortfolio {
     };
     const recent = [...this.data['3d'], ...this.data['vfx']]
       .sort((a, b) => parseDate(b.date) - parseDate(a.date))
-      .slice(0, 12);
+      .slice(0, window.innerWidth <= 768 ? 3 : 12);
 
     return `
       <div class="portfolio-home-inner">

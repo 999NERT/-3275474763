@@ -107,6 +107,7 @@
     justify-content: flex-start !important;
     scrollbar-width: none !important;   /* hide scrollbar on Firefox    */
     box-sizing: border-box !important;
+    background: #000 !important;        /* fill gap to the right of last tab */
   }
   .tab-btns-center::-webkit-scrollbar { display: none !important; }
 
@@ -440,17 +441,46 @@
 @media (max-width: 768px) {
   .collabs-list {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
-    padding: 8px 0 !important;
+    gap: 8px !important;
+    padding: 4px 0 !important;
   }
-  .collab-card { padding: 18px 14px !important; }
-  .collab-name { font-size: 0.76rem !important; }
-  .collab-date { font-size: 0.74rem !important; }
-  .collab-links-row { flex-wrap: wrap !important; gap: 7px !important; }
+  .collab-card {
+    padding: 12px 10px !important;
+  }
+  .collab-left {
+    margin-bottom: 8px !important;
+  }
+  .collab-avatar {
+    width: 56px !important;
+    height: 56px !important;
+    border-width: 2px !important;
+  }
+  .collab-name {
+    font-size: 0.52rem !important;
+    letter-spacing: 1px !important;
+  }
+  .collab-date {
+    font-size: 0.52rem !important;
+    letter-spacing: 1px !important;
+  }
+  .collab-status {
+    font-size: 0.42rem !important;
+    padding: 4px 8px !important;
+  }
+  .collab-right {
+    gap: 6px !important;
+  }
+  .collab-links {
+    flex-wrap: wrap !important;
+    gap: 5px !important;
+  }
   .collab-link {
-    font-size: 0.44rem !important;
-    padding: 9px 12px !important;
-    min-height: 38px !important;
+    font-size: 0.38rem !important;
+    padding: 6px 9px !important;
+    min-height: 30px !important;
+  }
+  .collab-link i {
+    font-size: 0.6rem !important;
   }
 }
 
