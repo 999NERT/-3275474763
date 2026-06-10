@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    999NERTAjs   ARCADE EDITION (app.js)
    - PL content embedded (no external translation files)
    - Data from data/ folder (3d.json, vfx.json, modele.json, collab.json)
@@ -368,76 +368,6 @@ class ArcadePortfolio {
       let touchX = 0, touchScroll = 0;
       carousel.addEventListener('touchstart', e => { touchX = e.touches[0].pageX; touchScroll = carousel.scrollLeft; }, { passive: true });
       carousel.addEventListener('touchmove', e => { carousel.scrollLeft = touchScroll - (e.touches[0].pageX - touchX) * 1.25; }, { passive: true });
-
-      // --- MOBILE: 1 projekt na raz, strzałki ‹ 1/9 › ---
-      if (window.innerWidth <= 768) {
-        const cards = carousel.querySelectorAll('.recent-card');
-        const total = cards.length;
-        if (total > 0) {
-          let idx = 0;
-          const shell = carousel.parentElement;
-
-          // Wyłącz touch-scroll — zastępujemy strzałkami
-          carousel.removeEventListener('touchmove', () => {});
-          carousel.style.overflowX = 'hidden';
-
-          // Ustaw dokładną szerokość każdej karty = szerokość kontenera (px)
-          const fitCards = () => {
-            const w = shell.offsetWidth + 'px';
-            cards.forEach(c => {
-              c.style.minWidth  = w;
-              c.style.maxWidth  = w;
-              c.style.flexBasis = w;
-            });
-          };
-          fitCards();
-          window.addEventListener('resize', () => { fitCards(); slide(); }, { passive: true });
-
-          // Nawigacja: ‹  1 / 9  › w jednej linii pod okienkiem
-          const navRow      = document.createElement('div');
-          navRow.className  = 'recent-nav-row';
-
-          const prevBtn     = document.createElement('button');
-          prevBtn.className = 'recent-nav-btn';
-          prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-
-          const counter     = document.createElement('span');
-          counter.className = 'recent-nav-counter';
-
-          const nextBtn     = document.createElement('button');
-          nextBtn.className = 'recent-nav-btn';
-          nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-
-          navRow.appendChild(prevBtn);
-          navRow.appendChild(counter);
-          navRow.appendChild(nextBtn);
-          shell.appendChild(navRow);
-
-          const slide = () => {
-            carousel.style.transform = `translateX(-${idx * shell.offsetWidth}px)`;
-            counter.textContent = `${idx + 1} / ${total}`;
-            prevBtn.disabled = idx === 0;
-            nextBtn.disabled = idx === total - 1;
-          };
-
-          prevBtn.addEventListener('click', () => { if (idx > 0) { idx--; slide(); } });
-          nextBtn.addEventListener('click', () => { if (idx < total - 1) { idx++; slide(); } });
-
-          // Swipe palcem
-          let swipeStartX = 0;
-          carousel.addEventListener('touchstart', e => { swipeStartX = e.touches[0].pageX; }, { passive: true });
-          carousel.addEventListener('touchend', e => {
-            const dx = swipeStartX - e.changedTouches[0].pageX;
-            if (Math.abs(dx) > 40) {
-              if (dx > 0 && idx < total - 1) idx++;
-              else if (dx < 0 && idx > 0) idx--;
-              slide();
-            }
-          });
-
-          slide();
-        }
-      }
     }
   }
 
