@@ -277,27 +277,41 @@
   }
   .recent-slider-shell {
     width: 100% !important;
-    overflow: hidden !important;
+    overflow: visible !important;  /* NIE ucinaj scrollbara */
     padding: 0 !important;
     margin: 0 !important;
   }
   .recent-carousel {
     display: flex !important;
     flex-direction: row !important;
+    align-items: flex-start !important;  /* karty nie rozciągają się w pionie */
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scroll-snap-type: x mandatory !important;
     gap: 10px !important;
-    padding: 0 4px 6px !important;
+    padding: 0 4px 8px !important;
     margin: 0 !important;
     width: 100% !important;
-    scrollbar-width: none !important;
+    /* widoczny cienki suwak */
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(0,255,255,0.6) rgba(255,255,255,0.05) !important;
     cursor: grab !important;
   }
-  .recent-carousel::-webkit-scrollbar { display: none !important; }
+  .recent-carousel::-webkit-scrollbar {
+    height: 4px !important;
+    display: block !important;
+  }
+  .recent-carousel::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05) !important;
+  }
+  .recent-carousel::-webkit-scrollbar-thumb {
+    background: rgba(0,255,255,0.6) !important;
+    border-radius: 2px !important;
+  }
   .recent-card {
     flex-shrink: 0 !important;
-    width: 72vw !important;            /* ~3/4 ekranu — widać peek następnej */
+    align-self: flex-start !important;   /* NIE rozciągaj karty w pionie */
+    width: 72vw !important;
     scroll-snap-align: start !important;
     background: #000 !important;
     border: 1px solid rgba(0,255,255,0.3) !important;
@@ -322,8 +336,7 @@
   .recent-info {
     padding: 8px 10px !important;
     background: #000 !important;
-    flex: 1 !important;
-    overflow: hidden !important;
+    flex: none !important;               /* NIE rozciągaj info w dół */
   }
   .recent-title { font-size: 0.38rem !important; }
   .recent-meta  { font-size: 0.40rem !important; }
