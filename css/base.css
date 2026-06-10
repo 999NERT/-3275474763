@@ -130,11 +130,17 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 .main-view.active-view {
   display: block;
   animation: fadeInView 0.40s var(--ease) both;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 .main-view.view-exiting {
   display: block !important;
   pointer-events: none;
   animation: fadeOutView 0.28s ease-in both;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 @keyframes fadeInView {
   from { opacity: 0; transform: translateY(18px) scale(0.995); }

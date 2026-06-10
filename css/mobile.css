@@ -57,11 +57,19 @@
 @media (max-width: 768px) {
   .portfolio-arcade {
     max-width: 100% !important;
-    padding: 12px 14px 56px !important;  /* 14px boczny = "zoom out" efekt */
+    padding: 12px 14px 56px !important;
   }
   .window-outline {
     min-height: 180px !important;
     padding: 4px 0 10px !important;
+  }
+  /* allow collabs and other content to scroll vertically */
+  #view-projekty .window-outline {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    max-height: none !important;
+    min-height: auto !important;
+    height: auto !important;
   }
 }
 
@@ -259,58 +267,71 @@
     width: 16px !important;
     height: 16px !important;
   }
+  /* sw-chip on home tab */
+  .sw-chip--home {
+    padding: 6px 9px !important;
+    font-size: 0.58rem !important;
+    gap: 5px !important;
+    border-width: 1px !important;
+  }
 
   /* Stats */
   .stat-box-arcade { padding: 11px 8px !important; }
   .stat-number-arcade { font-size: clamp(1.3rem, 7vw, 1.8rem) !important; }
   .stat-label-arcade  { font-size: 0.42rem !important; letter-spacing: 0.8px !important; }
 
-  /* Recent work — desktop-style horizontal swipe */
+  /* Recent work — horizontal scroll */
   .section-arcade--recent {
     margin-top: 14px !important;
-    padding-bottom: 4px !important;
+    padding-bottom: 20px !important;  /* place for scrollbar */
+    overflow: visible !important;     /* don't clip scrollbar */
   }
   .section-arcade--recent h3 {
     font-size: 0.62rem !important;
     letter-spacing: 1px !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 8px !important;
+    padding: 0 4px !important;
   }
   .recent-slider-shell {
     width: 100% !important;
-    overflow: visible !important;  /* NIE ucinaj scrollbara */
+    overflow: visible !important;
     padding: 0 !important;
     margin: 0 !important;
   }
   .recent-carousel {
     display: flex !important;
     flex-direction: row !important;
-    align-items: flex-start !important;  /* karty nie rozciągają się w pionie */
+    align-items: flex-start !important;  /* cards don't stretch vertically */
     overflow-x: auto !important;
+    overflow-y: visible !important;
     -webkit-overflow-scrolling: touch !important;
     scroll-snap-type: x mandatory !important;
     gap: 10px !important;
-    padding: 0 4px 8px !important;
+    padding: 0 4px 10px !important;  /* 10px bottom = scrollbar space */
     margin: 0 !important;
     width: 100% !important;
-    /* widoczny cienki suwak */
+    /* visible thin scrollbar */
     scrollbar-width: thin !important;
-    scrollbar-color: rgba(0,255,255,0.6) rgba(255,255,255,0.05) !important;
+    scrollbar-color: rgba(0,255,255,0.6) rgba(255,255,255,0.07) !important;
     cursor: grab !important;
+    will-change: scroll-position !important;
   }
   .recent-carousel::-webkit-scrollbar {
-    height: 4px !important;
+    height: 5px !important;
     display: block !important;
   }
   .recent-carousel::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.05) !important;
+    background: rgba(255,255,255,0.07) !important;
+    border-radius: 3px !important;
   }
   .recent-carousel::-webkit-scrollbar-thumb {
-    background: rgba(0,255,255,0.6) !important;
-    border-radius: 2px !important;
+    background: rgba(0,255,255,0.65) !important;
+    border-radius: 3px !important;
   }
   .recent-card {
     flex-shrink: 0 !important;
-    align-self: flex-start !important;   /* NIE rozciągaj karty w pionie */
+    align-self: flex-start !important;   /* don't stretch card vertically */
+    min-height: 0 !important;            /* remove 380px min-height bug */
     width: 72vw !important;
     scroll-snap-align: start !important;
     background: #000 !important;
@@ -336,7 +357,7 @@
   .recent-info {
     padding: 8px 10px !important;
     background: #000 !important;
-    flex: none !important;               /* NIE rozciągaj info w dół */
+    flex: none !important;               /* don't stretch info section */
   }
   .recent-title { font-size: 0.38rem !important; }
   .recent-meta  { font-size: 0.40rem !important; }

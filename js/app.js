@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    999NERTAjs   ARCADE EDITION (app.js)
    - PL content embedded (no external translation files)
    - Data from data/ folder (3d.json, vfx.json, modele.json, collab.json)
@@ -229,8 +229,9 @@ class ArcadePortfolio {
       const finish = () => {
         if (settled) return;
         settled = true;
-        outEl.classList.remove('view-exiting');
+        // Activate new view FIRST, then remove old – eliminates the 1-frame white gap
         activate();
+        outEl.classList.remove('view-exiting');
       };
       outEl.addEventListener('animationend', finish, { once: true });
       setTimeout(finish, 350); // fallback
